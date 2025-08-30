@@ -19,5 +19,6 @@
   },
   "[vue]": {
     "editor.defaultFormatter": "Vue.volar"
-  }
+  },
+  "css.customData": [".vscode/tailwindcss.json"]
 }

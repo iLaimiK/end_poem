@@ -1,0 +1,97 @@
+:root {
+  --main-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f1419 100%);
+  --sub-bg: rgba(74, 158, 255, 0.03);
+
+  --glass-bg: rgba(26, 35, 62, 0.3);
+  --glass-border: rgba(139, 170, 199, 0.2);
+
+  --text-primary: #e8eaf0;
+  --text-secondary: #8baac7;
+  --text-muted: #5a6b7d;
+
+  --accent-blue: #4a9eff;
+  --accent-purple: #6366f1;
+  --accent-teal: #14b8a6;
+  --accent-red: #ff6b6b;
+
+  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+  --theme-card-radius: 16px;
+  --theme-card-padding: 1.5rem;
+  --theme-hover-lift: translateY(-2px);
+  --theme-border-width: 1px;
+  --theme-backdrop-filter: blur(4px);
+  --theme-transition: all 0.5s ease;
+  --theme-shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 角色-白 */
+.theme-shiro {
+  --shiro-bg: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(10, 10, 20, 0.85) 50%, rgba(0, 0, 0, 0.75) 100%);
+  --shiro-sub-bg: rgba(0, 0, 0, 0.7);
+  --shiro-border: rgba(255, 255, 255, 0.2);
+  --shiro-text: rgba(255, 255, 255, 0.95);
+  --shiro-text-muted: rgba(255, 255, 255, 0.6);
+  --shiro-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 36px rgba(139, 170, 199, 0.2);
+}
+
+/* 角色-澪 */
+.theme-mio {
+  --mio-bg: linear-gradient(
+    135deg,
+    rgba(32, 28, 42, 0.75) 0%,
+    rgba(45, 38, 55, 0.8) 30%,
+    rgba(55, 48, 68, 0.75) 70%,
+    rgba(32, 28, 42, 0.75) 100%
+  );
+  --mio-border: rgba(180, 160, 210, 0.25);
+  --mio-text: rgba(220, 200, 240, 0.95);
+  --mio-text-muted: rgba(200, 180, 230, 0.7);
+  --mio-shadow: 0 0 30px rgba(180, 160, 210, 0.4), 0 0 45px rgba(220, 200, 240, 0.2);
+}
+
+/* 角色-Lily */
+.theme-lily {
+  --lily-bg: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(240, 248, 255, 0.2) 30%,
+    rgba(255, 255, 255, 0.18) 70%,
+    rgba(248, 250, 252, 0.15) 100%
+  );
+  --lily-border: rgba(255, 255, 255, 0.3);
+  --lily-text: rgba(255, 255, 255, 0.95);
+  --lily-text-muted: rgba(255, 255, 255, 0.8);
+  --lily-shadow: 0 0 25px rgba(255, 255, 255, 0.5), 0 0 35px rgba(240, 248, 255, 0.3);
+}
+
+/* 角色-布施翠 */
+.theme-midori {
+  --midori-bg: linear-gradient(
+    135deg,
+    rgba(255, 182, 193, 0.15) 0%,
+    rgba(221, 160, 221, 0.2) 30%,
+    rgba(230, 190, 230, 0.18) 70%,
+    rgba(240, 200, 240, 0.15) 100%
+  );
+  --midori-border: rgba(221, 160, 221, 0.3);
+  --midori-text: rgba(200, 160, 220, 0.95);
+  --midori-text-muted: rgba(200, 160, 220, 0.8);
+  --midori-shadow: 0 0 25px rgba(255, 182, 193, 0.4), 0 0 35px rgba(221, 160, 221, 0.3);
+}
+
+/* 角色-小比奈 */
+.theme-kohina {
+  --kohina-bg: linear-gradient(
+    135deg,
+    rgba(25, 50, 100, 0.75) 0%,
+    rgba(40, 70, 120, 0.8) 30%,
+    rgba(60, 30, 80, 0.75) 70%,
+    rgba(30, 40, 90, 0.75) 100%
+  );
+  --kohina-border: rgba(100, 150, 255, 0.3);
+  --kohina-text: rgba(200, 220, 255, 0.95);
+  --kohina-text-muted: rgba(200, 220, 255, 0.8);
+  --kohina-shadow: 0 0 25px rgba(100, 150, 255, 0.4), 0 0 35px rgba(255, 100, 100, 0.3);
+}
