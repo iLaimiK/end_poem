@@ -498,7 +498,7 @@ watch(volume, newVolume => {
     height: 30px;
     background: rgba(0, 0, 0, 0.2);
     font-size: 16px;
-    transition: all 0.2s ease-out;
+    transition: all 0.1s ease-out;
 
     &:hover {
       border-color: rgba(255, 255, 255, 1);

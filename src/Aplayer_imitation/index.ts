@@ -2,6 +2,7 @@ import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import MusicPlayer from './components/MusicPlayer.vue';
 import { DEFAULT_AUDIOS } from './data/default-audios';
+import { usePlayerStore } from './stores/player';
 import { getDefaultSettings, validateSettings } from './utils/settings';
 
 /**
@@ -125,33 +126,34 @@ class APlayerManager {
    * 应用用户设置
    */
   private applyUserSettings(): void {
-    setTimeout(() => {
-      try {
-        const savedSettings = getVariables({
-          type: 'script',
-          script_id: getScriptId()
-        });
-        const settings = APlayerUtils.processSettings(savedSettings);
-        this.applySettingsToStore(settings);
-        console.log('[APlayer] 已加载播放器设置:', settings);
-      } catch (error) {
-        console.warn('[APlayer] 加载播放器设置失败，使用默认设置:', error);
-        this.useDefaultSettings();
-      }
-    }, 200);
+    try {
+      const savedSettings = getVariables({
+        type: 'script',
+        script_id: getScriptId(),
+      });
+      const settings = APlayerUtils.processSettings(savedSettings);
+      this.applySettingsToStore(settings);
+      console.log('[APlayer] 已加载播放器设置:', settings);
+    } catch (error) {
+      console.warn('[APlayer] 加载播放器设置失败，使用默认设置:', error);
+      this.useDefaultSettings();
+    }
   }
 
   /**
    * 将设置应用到 Pinia store
    */
   private applySettingsToStore(settings: any): void {
-    if (!this.playerApp?._instance || !this.piniaInstance) return;
+    if (!this.piniaInstance) {
+      this.handleError('应用设置', 'Pinia 实例未初始化');
+      return;
+    }
 
-    const storeMap = this.piniaInstance._s;
-    const store = storeMap?.get('player');
-
+    const store = usePlayerStore(this.piniaInstance);
     if (store?.initFromSettings) {
       store.initFromSettings(settings);
+    } else {
+      this.handleError('应用设置', 'Store 或 initFromSettings 方法不存在');
     }
   }
 
