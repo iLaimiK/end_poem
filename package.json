@@ -1,5 +1,4 @@
 {
-  "packageManager": "pnpm@10.15.0",
   "scripts": {
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
