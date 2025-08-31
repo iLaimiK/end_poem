@@ -111,15 +111,15 @@ defineEmits<{
   }
 
   &::-webkit-scrollbar-track {
-    background: #f9f9f9;
+    background: #f1f1f1;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #eee;
-    border-radius: 3px;
+    background: #c1c1c1;
+    border-radius: 4px;
 
     &:hover {
-      background: #ccc;
+      background: #a8a8a8;
     }
   }
 }
