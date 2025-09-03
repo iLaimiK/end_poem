@@ -42,7 +42,7 @@ export function updateWorldbookScanText(stat_data: Record<string, any>): void {
           id: WORLDBOOK_SCAN_PROMPT_ID,
           position: 'none', // 不发给AI，只用来激活世界书
           depth: 0,
-          role: 'system',
+          role: 'user',
           content: scanTextString,
           should_scan: true, // 作为欲扫描文本，加入世界书扫描
         },
