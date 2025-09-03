@@ -1,5 +1,9 @@
 import { INTERNAL_KEYS } from './config/constants';
-import { detectSecondaryCharacterChanges, handleCharacterUpdate, validateSecondaryCharacters } from './handlers/character-handler';
+import {
+  detectSecondaryCharacterChanges,
+  handleCharacterUpdate,
+  validateSecondaryCharacters,
+} from './handlers/character-handler';
 import { deduplicatePlotNodeRecords, handlePlotProgress } from './handlers/plot-handler';
 import { handleMioStabilizer } from './handlers/special-handler';
 import { validateAndFixValue } from './handlers/validation-handler';
@@ -15,15 +19,19 @@ const PENDING_VALIDATIONS: PendingValidation[] = [];
  * @param out_is_updated - 指示是否已有更新的标志
  */
 function variableUpdateStarted(variables: Record<string, any>): void {
-  console.log("Variable update started");
+  console.log('Variable update started');
 
   // 在变量更新开始时检查并清理不允许的次要角色
   if (variables?.stat_data) {
     validateSecondaryCharacters(variables.stat_data);
 
     // 存储当前次要角色状态用于后续比较（存储在stat_data中确保持久性）
-    const currentSecondaryCharacters = _.get(variables.stat_data, "次要角色");
-    _.set(variables.stat_data, INTERNAL_KEYS.PREVIOUS_SECONDARY_CHARACTERS_KEY, _.cloneDeep(currentSecondaryCharacters));
+    const currentSecondaryCharacters = _.get(variables.stat_data, '次要角色');
+    _.set(
+      variables.stat_data,
+      INTERNAL_KEYS.PREVIOUS_SECONDARY_CHARACTERS_KEY,
+      _.cloneDeep(currentSecondaryCharacters),
+    );
   }
 }
 
@@ -42,7 +50,7 @@ function variableUpdated(stat_data: Record<string, any>, path: string, oldValue:
     stat_data,
     path,
     oldValue,
-    newValue
+    newValue,
   });
 
   // 调用各个专门的处理函数（使用原始新值）
@@ -57,7 +65,7 @@ function variableUpdated(stat_data: Record<string, any>, path: string, oldValue:
  * @param out_is_updated - 指示变量在处理过程中是否被更新的标志
  */
 function variableUpdateEnded(variables: Record<string, any>): void {
-  console.log("Variable update ended");
+  console.log('Variable update ended');
 
   // 现在执行延迟的数值验证
   if (PENDING_VALIDATIONS.length > 0) {
@@ -90,7 +98,7 @@ function variableUpdateEnded(variables: Record<string, any>): void {
     deduplicatePlotNodeRecords(variables.stat_data);
 
     // 检测次要角色变化
-    const currentSecondaryCharacters = _.get(variables.stat_data, "次要角色");
+    const currentSecondaryCharacters = _.get(variables.stat_data, '次要角色');
     const previousSecondaryCharacters = _.get(variables.stat_data, INTERNAL_KEYS.PREVIOUS_SECONDARY_CHARACTERS_KEY);
 
     if (previousSecondaryCharacters && currentSecondaryCharacters) {
@@ -98,7 +106,11 @@ function variableUpdateEnded(variables: Record<string, any>): void {
     }
 
     // 更新存储的状态（存储在stat_data中确保持久性）
-    _.set(variables.stat_data, INTERNAL_KEYS.PREVIOUS_SECONDARY_CHARACTERS_KEY, _.cloneDeep(currentSecondaryCharacters));
+    _.set(
+      variables.stat_data,
+      INTERNAL_KEYS.PREVIOUS_SECONDARY_CHARACTERS_KEY,
+      _.cloneDeep(currentSecondaryCharacters),
+    );
 
     // 更新世界书扫描文本
     updateWorldbookScanText(variables.stat_data);
@@ -107,9 +119,9 @@ function variableUpdateEnded(variables: Record<string, any>): void {
 
 // 注册MVU事件监听器
 $(() => {
-  eventOn("mag_variable_update_started", variableUpdateStarted);
-  eventOn("mag_variable_updated", variableUpdated);
-  eventOn("mag_variable_update_ended", variableUpdateEnded);
+  eventOn('mag_variable_update_started', variableUpdateStarted);
+  eventOn('mag_variable_updated', variableUpdated);
+  eventOn('mag_variable_update_ended', variableUpdateEnded);
 
-  console.log("MVU变量处理脚本已加载");
+  console.log('MVU变量处理脚本已加载');
 });

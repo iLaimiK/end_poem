@@ -8,7 +8,7 @@ export const formatTime = _.memoize((seconds: number): FormattedTime => {
     return {
       minutes: '00',
       seconds: '00',
-      full: '00:00'
+      full: '00:00',
     };
   }
 
@@ -21,7 +21,7 @@ export const formatTime = _.memoize((seconds: number): FormattedTime => {
   return {
     minutes,
     seconds: secondsStr,
-    full: `${minutes}:${secondsStr}`
+    full: `${minutes}:${secondsStr}`,
   };
 });
 

@@ -1,16 +1,20 @@
 import type { CharacterRecord } from '../types/index';
-import { getCurrentTimeAndLocation, getStandardizedRecordName, isAllowedSecondaryCharacter } from '../utils/character-utils';
+import {
+  getCurrentTimeAndLocation,
+  getStandardizedRecordName,
+  isAllowedSecondaryCharacter,
+} from '../utils/character-utils';
 
 /**
  * 检查并清理不允许的次要角色
  * @param stat_data - stat_data对象
  */
 export function validateSecondaryCharacters(stat_data: Record<string, any>): void {
-  if (!_.has(stat_data, "次要角色")) {
+  if (!_.has(stat_data, '次要角色')) {
     return;
   }
 
-  const secondaryCharacters = _.get(stat_data, "次要角色");
+  const secondaryCharacters = _.get(stat_data, '次要角色');
   if (!_.isObject(secondaryCharacters) || Array.isArray(secondaryCharacters)) {
     return;
   }
@@ -26,7 +30,7 @@ export function validateSecondaryCharacters(stat_data: Record<string, any>): voi
 
   // 移除不允许的角色
   if (charactersToRemove.length > 0) {
-    console.log(`[次要角色限制] 检测到不允许的角色，正在移除: ${charactersToRemove.join(", ")}`);
+    console.log(`[次要角色限制] 检测到不允许的角色，正在移除: ${charactersToRemove.join(', ')}`);
     for (const characterName of charactersToRemove) {
       _.unset(stat_data, `次要角色.${characterName}`);
     }
@@ -39,8 +43,8 @@ export function validateSecondaryCharacters(stat_data: Record<string, any>): voi
  * @param characterName - 角色名称
  */
 export function handleSecondaryCharacterEntry(stat_data: Record<string, any>, characterName: string): void {
-  if (!_.has(stat_data, "次要角色记录")) {
-    _.set(stat_data, "次要角色记录", {});
+  if (!_.has(stat_data, '次要角色记录')) {
+    _.set(stat_data, '次要角色记录', {});
   }
 
   const currentInfo = getCurrentTimeAndLocation(stat_data);
@@ -59,14 +63,14 @@ export function handleSecondaryCharacterEntry(stat_data: Record<string, any>, ch
     console.log(`[次要角色管理] ${characterName} (记录名: ${standardizedName}) 重新出场，恢复记录信息`);
 
     // 恢复信任值
-    const savedTrustValue = _.get(characterRecord, "信任值", 0.01);
+    const savedTrustValue = _.get(characterRecord, '信任值', 0.01);
     if (_.has(stat_data, `${characterPath}.信任值`)) {
       _.set(stat_data, `${characterPath}.信任值`, savedTrustValue);
       console.log(`[次要角色管理] 恢复 ${characterName} 的信任值: ${savedTrustValue}`);
     }
 
     // 恢复物品（合并，新物品优先）
-    const savedItems = _.get(characterRecord, "离场时持有的物品", {});
+    const savedItems = _.get(characterRecord, '离场时持有的物品', {});
     const currentItems = _.get(stat_data, `${characterPath}.持有物品`, {});
 
     if (Object.keys(savedItems).length > 0) {
@@ -78,24 +82,23 @@ export function handleSecondaryCharacterEntry(stat_data: Record<string, any>, ch
     }
 
     // 更新出场信息
-    _.set(stat_data, `${recordPath}.出场次数`, (_.get(characterRecord, "出场次数", 0) + 1));
+    _.set(stat_data, `${recordPath}.出场次数`, _.get(characterRecord, '出场次数', 0) + 1);
     _.set(stat_data, `${recordPath}.出场地点`, currentInfo.地点);
     _.set(stat_data, `${recordPath}.出场时间`, `${currentInfo.日期} ${currentInfo.时间}`);
-    _.set(stat_data, `${recordPath}.离场地点`, "待定");
-    _.set(stat_data, `${recordPath}.离场时间`, "N/A");
-
+    _.set(stat_data, `${recordPath}.离场地点`, '待定');
+    _.set(stat_data, `${recordPath}.离场时间`, 'N/A');
   } else {
     // 首次出场 - 创建新记录
     console.log(`[次要角色管理] ${characterName} (记录名: ${standardizedName}) 首次出场，创建新记录`);
 
     const newRecord: CharacterRecord = {
-      "出场次数": 1,
-      "出场地点": currentInfo.地点,
-      "出场时间": `${currentInfo.日期} ${currentInfo.时间}`,
-      "离场地点": "待定",
-      "离场时间": "N/A",
-      "信任值": _.get(stat_data, `${characterPath}.信任值`, 0.01),
-      "离场时持有的物品": {}
+      出场次数: 1,
+      出场地点: currentInfo.地点,
+      出场时间: `${currentInfo.日期} ${currentInfo.时间}`,
+      离场地点: '待定',
+      离场时间: 'N/A',
+      信任值: _.get(stat_data, `${characterPath}.信任值`, 0.01),
+      离场时持有的物品: {},
     };
 
     _.set(stat_data, recordPath, newRecord);
@@ -110,9 +113,13 @@ export function handleSecondaryCharacterEntry(stat_data: Record<string, any>, ch
  * @param characterName - 角色名称
  * @param characterData - 角色数据（离场前的数据）
  */
-export function handleSecondaryCharacterExit(stat_data: Record<string, any>, characterName: string, characterData: Record<string, any>): void {
-  if (!_.has(stat_data, "次要角色记录")) {
-    _.set(stat_data, "次要角色记录", {});
+export function handleSecondaryCharacterExit(
+  stat_data: Record<string, any>,
+  characterName: string,
+  characterData: Record<string, any>,
+): void {
+  if (!_.has(stat_data, '次要角色记录')) {
+    _.set(stat_data, '次要角色记录', {});
   }
 
   const currentInfo = getCurrentTimeAndLocation(stat_data);
@@ -126,13 +133,13 @@ export function handleSecondaryCharacterExit(stat_data: Record<string, any>, cha
   // 确保有基础记录
   if (!_.has(stat_data, recordPath)) {
     const defaultRecord: CharacterRecord = {
-      "出场次数": 1,
-      "出场地点": "",
-      "出场时间": "",
-      "离场地点": "待定",
-      "离场时间": "N/A",
-      "信任值": 0.01,
-      "离场时持有的物品": {}
+      出场次数: 1,
+      出场地点: '',
+      出场时间: '',
+      离场地点: '待定',
+      离场时间: 'N/A',
+      信任值: 0.01,
+      离场时持有的物品: {},
     };
     _.set(stat_data, recordPath, defaultRecord);
   }
@@ -142,14 +149,16 @@ export function handleSecondaryCharacterExit(stat_data: Record<string, any>, cha
   _.set(stat_data, `${recordPath}.离场时间`, `${currentInfo.日期} ${currentInfo.时间}`);
 
   // 保存当前信任值
-  const currentTrust = _.get(characterData, "信任值", 0.01);
+  const currentTrust = _.get(characterData, '信任值', 0.01);
   _.set(stat_data, `${recordPath}.信任值`, currentTrust);
 
   // 保存当前持有物品
-  const currentItems = _.get(characterData, "持有物品", {});
+  const currentItems = _.get(characterData, '持有物品', {});
   _.set(stat_data, `${recordPath}.离场时持有的物品`, currentItems);
 
-  console.log(`[次要角色管理] ${characterName} 离场状态已保存 - 信任值: ${currentTrust}, 物品数量: ${Object.keys(currentItems).length}`);
+  console.log(
+    `[次要角色管理] ${characterName} 离场状态已保存 - 信任值: ${currentTrust}, 物品数量: ${Object.keys(currentItems).length}`,
+  );
 }
 
 /**
@@ -158,7 +167,11 @@ export function handleSecondaryCharacterExit(stat_data: Record<string, any>, cha
  * @param oldSecondaryCharacters - 旧的次要角色对象
  * @param newSecondaryCharacters - 新的次要角色对象
  */
-export function detectSecondaryCharacterChanges(stat_data: Record<string, any>, oldSecondaryCharacters: Record<string, any>, newSecondaryCharacters: Record<string, any>): void {
+export function detectSecondaryCharacterChanges(
+  stat_data: Record<string, any>,
+  oldSecondaryCharacters: Record<string, any>,
+  newSecondaryCharacters: Record<string, any>,
+): void {
   if (!oldSecondaryCharacters || !newSecondaryCharacters) {
     return;
   }
@@ -187,7 +200,7 @@ export function detectSecondaryCharacterChanges(stat_data: Record<string, any>, 
  * @param newValue - 新值
  */
 export function handleCharacterUpdate(stat_data: Record<string, any>, path: string, newValue: any): void {
-  if (path === "次要角色") {
+  if (path === '次要角色') {
     // 在次要角色对象被更新后，检查并清理不允许的角色
     validateSecondaryCharacters(stat_data);
   }

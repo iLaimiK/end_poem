@@ -11,7 +11,7 @@ export enum PlayOrder {
   /** 单曲循环 */
   REPEAT_ONE = 'repeat-one',
   /** 播完停止 */
-  NONE = 'none'
+  NONE = 'none',
 }
 
 /** 播放器事件类型 */
@@ -23,7 +23,7 @@ export enum PlayerEvent {
   LOADED_METADATA = 'loadedmetadata',
   CAN_PLAY = 'canplay',
   PROGRESS = 'progress',
-  ERROR = 'error'
+  ERROR = 'error',
 }
 
 /** 音频加载状态 */
@@ -35,5 +35,5 @@ export enum AudioLoadState {
   /** 已加载 */
   LOADED = 'loaded',
   /** 加载错误 */
-  ERROR = 'error'
+  ERROR = 'error',
 }

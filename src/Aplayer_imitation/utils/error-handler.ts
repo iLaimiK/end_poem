@@ -8,7 +8,7 @@ export enum ErrorType {
   AUDIO_PLAY_ERROR = 'audio_play_error',
   NETWORK_ERROR = 'network_error',
   PERMISSION_ERROR = 'permission_error',
-  UNKNOWN_ERROR = 'unknown_error'
+  UNKNOWN_ERROR = 'unknown_error',
 }
 
 /**
@@ -29,7 +29,7 @@ export enum LoadingState {
   IDLE = 'idle',
   LOADING = 'loading',
   SUCCESS = 'success',
-  ERROR = 'error'
+  ERROR = 'error',
 }
 
 /**
@@ -46,7 +46,7 @@ export const useErrorHandler = () => {
   const addError = _.throttle((error: Omit<ErrorInfo, 'timestamp'>) => {
     const errorInfo: ErrorInfo = {
       ...error,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     };
 
     errors.value.unshift(errorInfo);
@@ -110,7 +110,7 @@ export const useErrorHandler = () => {
       type,
       message: `${message}: ${trackName}`,
       trackName,
-      trackUrl
+      trackUrl,
     });
 
     setLoadingState(LoadingState.ERROR);
@@ -133,7 +133,7 @@ export const useErrorHandler = () => {
     addError({
       type: ErrorType.AUDIO_PLAY_ERROR,
       message: `${message}: ${trackName}`,
-      trackName
+      trackName,
     });
   };
 
@@ -143,7 +143,7 @@ export const useErrorHandler = () => {
   const handleNetworkError = (message = '网络连接失败') => {
     addError({
       type: ErrorType.NETWORK_ERROR,
-      message
+      message,
     });
   };
 
@@ -153,7 +153,7 @@ export const useErrorHandler = () => {
   const handleUnknownError = (error: any, context = '未知操作') => {
     addError({
       type: ErrorType.UNKNOWN_ERROR,
-      message: `${context}时发生未知错误: ${error?.message || '未知错误'}`
+      message: `${context}时发生未知错误: ${error?.message || '未知错误'}`,
     });
   };
 
@@ -168,7 +168,7 @@ export const useErrorHandler = () => {
     handleAudioLoadError,
     handleAudioPlayError,
     handleNetworkError,
-    handleUnknownError
+    handleUnknownError,
   };
 };
 
@@ -187,10 +187,7 @@ export class RetryHandler {
   /**
    * 执行带重试的异步操作
    */
-  async execute<T>(
-    operation: () => Promise<T>,
-    onRetry?: (attempt: number, error: any) => void
-  ): Promise<T> {
+  async execute<T>(operation: () => Promise<T>, onRetry?: (attempt: number, error: any) => void): Promise<T> {
     let lastError: any;
 
     for (let attempt = 1; attempt <= this.maxRetries; attempt++) {

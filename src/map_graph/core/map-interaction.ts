@@ -16,7 +16,7 @@ export class MapInteraction {
     maxScale: 5.0,
     zoomSensitivity: 0.001,
     touchZoomSensitivity: 0.005,
-    panSensitivity: 1.0
+    panSensitivity: 1.0,
   };
 
   constructor(canvas: HTMLCanvasElement, renderer: CanvasRenderer) {
@@ -27,7 +27,7 @@ export class MapInteraction {
       isDragging: false,
       lastPointerX: 0,
       lastPointerY: 0,
-      lastScale: 1
+      lastScale: 1,
     };
 
     this.setupInteractions();
@@ -50,7 +50,7 @@ export class MapInteraction {
     this.canvas.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: false });
 
     // 阻止默认的上下文菜单
-    this.canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+    this.canvas.addEventListener('contextmenu', e => e.preventDefault());
   }
 
   /**
@@ -133,9 +133,12 @@ export class MapInteraction {
       const touch2 = event.touches[1];
       const currentDistance = this.getTouchDistance(touch1, touch2);
 
-      const scaleChange = (currentDistance - this.interactionState.startPinchDistance!) * this.config.touchZoomSensitivity;
-      const newScale = Math.max(this.config.minScale,
-        Math.min(this.config.maxScale, this.interactionState.lastScale + scaleChange));
+      const scaleChange =
+        (currentDistance - this.interactionState.startPinchDistance!) * this.config.touchZoomSensitivity;
+      const newScale = Math.max(
+        this.config.minScale,
+        Math.min(this.config.maxScale, this.interactionState.lastScale + scaleChange),
+      );
 
       // 以双指中心点为缩放中心
       const centerX = (touch1.clientX + touch2.clientX) / 2;
@@ -185,12 +188,12 @@ export class MapInteraction {
     const viewState = this.renderer.getViewState();
 
     // 应用拖拽偏移（除以缩放以保持一致的拖拽速度）
-    const newOffsetX = viewState.offsetX + deltaX / viewState.scale * this.config.panSensitivity;
-    const newOffsetY = viewState.offsetY + deltaY / viewState.scale * this.config.panSensitivity;
+    const newOffsetX = viewState.offsetX + (deltaX / viewState.scale) * this.config.panSensitivity;
+    const newOffsetY = viewState.offsetY + (deltaY / viewState.scale) * this.config.panSensitivity;
 
     this.renderer.setViewState({
       offsetX: newOffsetX,
-      offsetY: newOffsetY
+      offsetY: newOffsetY,
     });
 
     this.interactionState.lastPointerX = clientX;
@@ -210,9 +213,9 @@ export class MapInteraction {
   private zoomAt(canvasX: number, canvasY: number, deltaScale: number, isRelative: boolean = true): void {
     const viewState = this.renderer.getViewState();
     const oldScale = viewState.scale;
-    const newScale = isRelative ?
-      Math.max(this.config.minScale, Math.min(this.config.maxScale, oldScale + deltaScale)) :
-      Math.max(this.config.minScale, Math.min(this.config.maxScale, deltaScale));
+    const newScale = isRelative
+      ? Math.max(this.config.minScale, Math.min(this.config.maxScale, oldScale + deltaScale))
+      : Math.max(this.config.minScale, Math.min(this.config.maxScale, deltaScale));
 
     if (newScale === oldScale) return;
 
@@ -228,7 +231,7 @@ export class MapInteraction {
     this.renderer.setViewState({
       scale: newScale,
       offsetX: newOffsetX,
-      offsetY: newOffsetY
+      offsetY: newOffsetY,
     });
   }
 
@@ -261,7 +264,7 @@ export class MapInteraction {
     this.renderer.setViewState({ scale: clampedScale });
   }
 
-  public resetView(mapBounds?: { minX: number, maxX: number, minY: number, maxY: number }): void {
+  public resetView(mapBounds?: { minX: number; maxX: number; minY: number; maxY: number }): void {
     if (mapBounds) {
       // 重置到适合地图内容的视图
       const mapWidth = mapBounds.maxX - mapBounds.minX;
@@ -272,7 +275,7 @@ export class MapInteraction {
         this.renderer.setViewState({
           offsetX: -((mapBounds.minX + mapBounds.maxX) / 2),
           offsetY: -((mapBounds.minY + mapBounds.maxY) / 2),
-          scale: 1
+          scale: 1,
         });
       } else {
         let scale = 1;
@@ -286,7 +289,7 @@ export class MapInteraction {
         this.renderer.setViewState({
           offsetX: -((mapBounds.minX + mapBounds.maxX) / 2),
           offsetY: -((mapBounds.minY + mapBounds.maxY) / 2),
-          scale: scale
+          scale: scale,
         });
       }
     } else {
@@ -294,7 +297,7 @@ export class MapInteraction {
       this.renderer.setViewState({
         offsetX: 0,
         offsetY: 0,
-        scale: 1
+        scale: 1,
       });
     }
   }
@@ -318,6 +321,6 @@ export class MapInteraction {
     this.canvas.removeEventListener('touchstart', this.handleTouchStart.bind(this));
     this.canvas.removeEventListener('touchmove', this.handleTouchMove.bind(this));
     this.canvas.removeEventListener('touchend', this.handleTouchEnd.bind(this));
-    this.canvas.removeEventListener('contextmenu', (e) => e.preventDefault());
+    this.canvas.removeEventListener('contextmenu', e => e.preventDefault());
   }
 }

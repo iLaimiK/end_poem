@@ -17,33 +17,33 @@ const routes: RouteRecordRaw[] = [
     name: 'Home',
     redirect: '/global',
     component: layout,
-    children:[
+    children: [
       {
         path: '/global',
         name: 'Global',
         component: global,
         meta: {
-          title: '世界状态'
-        }
+          title: '世界状态',
+        },
       },
       {
         path: '/primary-role',
         name: 'PrimaryRole',
         component: primaryRole,
         meta: {
-          title: '旅行同伴'
-        }
+          title: '旅行同伴',
+        },
       },
       {
         path: '/plot-role',
         name: 'PlotRole',
         component: plotRole,
         meta: {
-          title: '邂逅之人'
-        }
+          title: '邂逅之人',
+        },
       },
-    ]
-  }
+    ],
+  },
 ];
 
 const router = createRouter({

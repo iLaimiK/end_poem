@@ -25,7 +25,7 @@ export class MapParser {
       edges: [],
       metadata: {},
       currentLocation: null,
-      free_movement: 'A' // Adjacent by default
+      free_movement: 'A', // Adjacent by default
     };
 
     const nodeIds = new Set<string>();
@@ -35,7 +35,9 @@ export class MapParser {
       if (!trimmedLine || trimmedLine.startsWith('#')) return;
 
       // 解析节点 n:id|type|label@characters|x|y|shape|dimensions
-      const nodeMatch = /^n:([^|]+)\|([^|]+)\|([^|@]+)(?:@([^|]*))?(?:\|)(\d+)\|(\d+)\|([rc])\|(.*)$/i.exec(trimmedLine);
+      const nodeMatch = /^n:([^|]+)\|([^|]+)\|([^|@]+)(?:@([^|]*))?(?:\|)(\d+)\|(\d+)\|([rc])\|(.*)$/i.exec(
+        trimmedLine,
+      );
 
       if (nodeMatch) {
         const node = this.parseNode(nodeMatch);
@@ -68,9 +70,7 @@ export class MapParser {
 
     // 验证边的有效性
     const validNodeIds = new Set(mapData.nodes.map(n => n.id));
-    mapData.edges = mapData.edges.filter(edge =>
-      validNodeIds.has(edge.from) && validNodeIds.has(edge.to)
-    );
+    mapData.edges = mapData.edges.filter(edge => validNodeIds.has(edge.from) && validNodeIds.has(edge.to));
 
     return mapData;
   }
@@ -91,8 +91,11 @@ export class MapParser {
       y,
       shape: shapeCode.toLowerCase().trim() as 'r' | 'c',
       characters: charactersStr
-        ? charactersStr.split(',').map(s => s.trim()).filter(Boolean)
-        : []
+        ? charactersStr
+            .split(',')
+            .map(s => s.trim())
+            .filter(Boolean)
+        : [],
     };
 
     // 设置节点尺寸
@@ -118,7 +121,7 @@ export class MapParser {
     return {
       from: from.trim(),
       to: to.trim(),
-      type: (typeCode ? typeCode.trim() : 'c') as EdgeType
+      type: (typeCode ? typeCode.trim() : 'c') as EdgeType,
     };
   }
 

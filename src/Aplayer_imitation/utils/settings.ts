@@ -20,12 +20,16 @@ export const PlayerSettingsSchema = z.object({
   isMinimized: z.boolean().default(false),
 
   /** 自定义歌曲列表 */
-  customAudioList: z.array(z.object({
-    name: z.string(),
-    artist: z.string(),
-    url: z.url(),
-    cover: z.url().optional(),
-  })).optional(),
+  customAudioList: z
+    .array(
+      z.object({
+        name: z.string(),
+        artist: z.string(),
+        url: z.url(),
+        cover: z.url().optional(),
+      }),
+    )
+    .optional(),
 });
 
 export type PlayerSettings = z.infer<typeof PlayerSettingsSchema>;

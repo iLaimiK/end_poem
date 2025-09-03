@@ -27,11 +27,11 @@ export class AudioEngine {
       'loadedmetadata',
       'canplay',
       'progress',
-      'error'
+      'error',
     ];
 
     events.forEach(event => {
-      this.audio.addEventListener(event, (e) => {
+      this.audio.addEventListener(event, e => {
         this.emit(event as PlayerEvent, e);
       });
     });
@@ -109,7 +109,8 @@ export class AudioEngine {
    * 播放
    */
   async play(): Promise<void> {
-    if (this.audio.readyState >= 2) { // HAVE_CURRENT_DATA
+    if (this.audio.readyState >= 2) {
+      // HAVE_CURRENT_DATA
       try {
         await this.audio.play();
       } catch (error) {

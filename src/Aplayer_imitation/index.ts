@@ -88,7 +88,7 @@ class APlayerManager {
   private findScopeIds(): Set<string> {
     const uniqueScopeIds = new Set<string>();
 
-    this.container?.find('div').each(function() {
+    this.container?.find('div').each(function () {
       const attributes = this.getAttributeNames();
       attributes.forEach(attr => {
         if (attr.startsWith('data-v-')) {
@@ -259,7 +259,7 @@ const APlayerUtils = {
   saveSettings: _.debounce((settings: any) => {
     replaceVariables(settings, {
       type: 'script',
-      script_id: getScriptId()
+      script_id: getScriptId(),
     });
   }, 500),
 
@@ -271,7 +271,7 @@ const APlayerUtils = {
     (validSettings: any) => {
       APlayerUtils.saveSettings(validSettings);
       return validSettings;
-    }
+    },
   ]),
 
   /**
@@ -279,7 +279,7 @@ const APlayerUtils = {
    */
   logError: _.throttle((message: string, error?: any) => {
     console.error(`[APlayer] ${message}:`, error);
-  }, 1000)
+  }, 1000),
 };
 
 // 全局管理器实例
@@ -305,13 +305,17 @@ const destroyMusicPlayer = () => {
 /**
  * 防抖创建播放器 - 优化防抖逻辑
  */
-const debouncedCreatePlayer = _.debounce(() => {
-  createMusicPlayer();
-}, 1000, {
-  leading: false,
-  trailing: true,
-  maxWait: 2000 // 最大等待时间
-});
+const debouncedCreatePlayer = _.debounce(
+  () => {
+    createMusicPlayer();
+  },
+  1000,
+  {
+    leading: false,
+    trailing: true,
+    maxWait: 2000, // 最大等待时间
+  },
+);
 
 // 初始化
 $(() => {
@@ -320,8 +324,4 @@ $(() => {
 });
 
 // 导出供外部使用
-export {
-  createMusicPlayer,
-  destroyMusicPlayer
-};
-
+export { createMusicPlayer, destroyMusicPlayer };

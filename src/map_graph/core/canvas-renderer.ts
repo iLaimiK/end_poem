@@ -10,8 +10,12 @@ export class CanvasRenderer {
   private mapData: MapData | null = null;
 
   // 移动端检测
-  private get isMobile(): boolean { return window.innerWidth <= 768; }
-  private get isSmallMobile(): boolean { return window.innerWidth <= 480; }
+  private get isMobile(): boolean {
+    return window.innerWidth <= 768;
+  }
+  private get isSmallMobile(): boolean {
+    return window.innerWidth <= 480;
+  }
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
@@ -24,7 +28,7 @@ export class CanvasRenderer {
     this.viewState = {
       offsetX: 0,
       offsetY: 0,
-      scale: 1
+      scale: 1,
     };
 
     this.setupCanvas();
@@ -118,7 +122,6 @@ export class CanvasRenderer {
     const containerWidth = rect.width;
     const containerHeight = rect.height;
 
-
     // 如果地图内容尺寸为0，使用默认缩放
     if (mapWidth === 0 && mapHeight === 0) {
       this.viewState.offsetX = -((minX + maxX) / 2);
@@ -136,7 +139,6 @@ export class CanvasRenderer {
       // 设置合理的缩放范围
       scale = Math.min(Math.max(scale, 0.2), 2);
     }
-
 
     // 居中显示
     this.viewState.offsetX = -((minX + maxX) / 2);
@@ -194,11 +196,7 @@ export class CanvasRenderer {
     // 应用变换：DPR缩放 * 地图缩放
     const finalScale = scale * dpr;
 
-    this.ctx.setTransform(
-      finalScale, 0, 0, finalScale,
-      centerX + finalScale * offsetX,
-      centerY + finalScale * offsetY
-    );
+    this.ctx.setTransform(finalScale, 0, 0, finalScale, centerX + finalScale * offsetX, centerY + finalScale * offsetY);
 
     // 重新应用画布质量优化（变换后需要重新设置）
     this.optimizeCanvasQuality();
@@ -224,7 +222,7 @@ export class CanvasRenderer {
   /**
    * 绘制单条边，根据类型设置不同样式
    */
-  private drawEdge(edge: MapEdge, from: {x: number, y: number}, to: {x: number, y: number}): void {
+  private drawEdge(edge: MapEdge, from: { x: number; y: number }, to: { x: number; y: number }): void {
     // 优化线条粗细
     const baseLineWidth = this.isSmallMobile ? 0.5 : this.isMobile ? 0.6 : 1.0;
 
@@ -335,14 +333,14 @@ export class CanvasRenderer {
 
       return {
         x: node.x + unitX * minT,
-        y: node.y + unitY * minT
+        y: node.y + unitY * minT,
       };
     } else {
       // 圆形节点边缘交点计算
       const radius = node.radius || 15;
       return {
         x: node.x + unitX * radius,
-        y: node.y + unitY * radius
+        y: node.y + unitY * radius,
       };
     }
   }
@@ -350,7 +348,7 @@ export class CanvasRenderer {
   private drawNodes(): void {
     if (!this.mapData) return;
 
-    this.mapData.nodes.forEach((node) => {
+    this.mapData.nodes.forEach(node => {
       const isCurrent = node.id === this.mapData!.currentLocation;
       const isExit = node.type === 'e';
       const isReachable = this.isNodeReachable(node);
@@ -397,7 +395,7 @@ export class CanvasRenderer {
       if (node.shape === 'r') {
         const w = node.width || 40;
         const h = node.height || 30;
-        this.ctx.rect(node.x - w/2, node.y - h/2, w, h);
+        this.ctx.rect(node.x - w / 2, node.y - h / 2, w, h);
       } else {
         const r = node.radius || 15;
         this.ctx.arc(node.x, node.y, r, 0, Math.PI * 2);
@@ -430,9 +428,9 @@ export class CanvasRenderer {
     if (this.mapData.free_movement === 'N') return targetNode.id === this.mapData.currentLocation;
 
     // 临近移动模式：只有直接相邻且路径未锁定的节点才可达
-    const adjacentEdges = this.mapData.edges.filter(edge =>
-      (edge.from === this.mapData!.currentLocation || edge.to === this.mapData!.currentLocation) &&
-      edge.type === 'c'
+    const adjacentEdges = this.mapData.edges.filter(
+      edge =>
+        (edge.from === this.mapData!.currentLocation || edge.to === this.mapData!.currentLocation) && edge.type === 'c',
     );
 
     return adjacentEdges.some(edge => {
@@ -448,7 +446,8 @@ export class CanvasRenderer {
     // 移动端优化：调整EXIT图标字体大小
     const baseFontSize = this.isMobile ? 8 : 12;
     const fontSize = baseFontSize / this.viewState.scale;
-    const iconY = node.y + (node.shape === 'r' ? (node.height || 30) / 2 : (node.radius || 15)) + fontSize + 6 / this.viewState.scale;
+    const iconY =
+      node.y + (node.shape === 'r' ? (node.height || 30) / 2 : node.radius || 15) + fontSize + 6 / this.viewState.scale;
 
     // 测量文字尺寸以适应背景
     this.ctx.font = `bold ${fontSize}px "Segoe UI", sans-serif`;
@@ -503,7 +502,8 @@ export class CanvasRenderer {
         this.ctx.font = `bold ${fontSize * 0.8}px "Segoe UI", sans-serif`;
         this.ctx.textBaseline = 'top';
 
-        const labelY = node.y + (node.shape === 'r' ? (node.height || 30) / 2 : (node.radius || 15)) + 8 / this.viewState.scale;
+        const labelY =
+          node.y + (node.shape === 'r' ? (node.height || 30) / 2 : node.radius || 15) + 8 / this.viewState.scale;
         this.ctx.fillText('[当前位置]', node.x, labelY);
 
         // 重置字体
@@ -524,14 +524,14 @@ export class CanvasRenderer {
 
     // 收集地图中存在的边类型
     const edgeTypes = new Set(this.mapData.edges.map(edge => edge.type));
-    const typeInfos: Array<{type: string, color: string, text: string, pattern: string}> = [];
+    const typeInfos: Array<{ type: string; color: string; text: string; pattern: string }> = [];
 
-    if (edgeTypes.has('c')) typeInfos.push({type: 'c', color: '#4a9eff', text: '普通路径', pattern: '────'});
-    if (edgeTypes.has('l')) typeInfos.push({type: 'l', color: '#ef4444', text: '锁定路径', pattern: '- - -'});
-    if (edgeTypes.has('ld')) typeInfos.push({type: 'ld', color: '#fbbf24', text: '门锁', pattern: '– – –'});
-    if (edgeTypes.has('lg')) typeInfos.push({type: 'lg', color: '#8b5cf6', text: '守卫', pattern: '‒ ‒ ‒'});
-    if (edgeTypes.has('lb')) typeInfos.push({type: 'lb', color: '#ec4899', text: '障碍', pattern: '··· ···'});
-    if (edgeTypes.has('lh')) typeInfos.push({type: 'lh', color: '#d1d5db', text: '隐藏', pattern: '. . . .'});
+    if (edgeTypes.has('c')) typeInfos.push({ type: 'c', color: '#4a9eff', text: '普通路径', pattern: '────' });
+    if (edgeTypes.has('l')) typeInfos.push({ type: 'l', color: '#ef4444', text: '锁定路径', pattern: '- - -' });
+    if (edgeTypes.has('ld')) typeInfos.push({ type: 'ld', color: '#fbbf24', text: '门锁', pattern: '– – –' });
+    if (edgeTypes.has('lg')) typeInfos.push({ type: 'lg', color: '#8b5cf6', text: '守卫', pattern: '‒ ‒ ‒' });
+    if (edgeTypes.has('lb')) typeInfos.push({ type: 'lb', color: '#ec4899', text: '障碍', pattern: '··· ···' });
+    if (edgeTypes.has('lh')) typeInfos.push({ type: 'lh', color: '#d1d5db', text: '隐藏', pattern: '. . . .' });
 
     if (typeInfos.length === 0) return;
 
@@ -550,12 +550,7 @@ export class CanvasRenderer {
 
     // 绘制半透明背景
     this.ctx.fillStyle = 'rgba(22, 33, 62, 0.3)';
-    this.ctx.fillRect(
-      padding - 6,
-      startY - 10,
-      backgroundWidth,
-      typeInfos.length * lineHeight + 16
-    );
+    this.ctx.fillRect(padding - 6, startY - 10, backgroundWidth, typeInfos.length * lineHeight + 16);
 
     this.ctx.font = `${fontSize}px "Segoe UI", sans-serif`;
     this.ctx.textAlign = 'left';
@@ -600,8 +595,8 @@ export class CanvasRenderer {
       this.ctx.shadowBlur = 3;
 
       this.ctx.beginPath();
-      this.ctx.moveTo(padding, y + lineHeight/2);
-      this.ctx.lineTo(padding + lineLength, y + lineHeight/2);
+      this.ctx.moveTo(padding, y + lineHeight / 2);
+      this.ctx.lineTo(padding + lineLength, y + lineHeight / 2);
       this.ctx.stroke();
       this.ctx.restore();
       this.ctx.setLineDash([]); // 重置
@@ -651,7 +646,7 @@ export class CanvasRenderer {
       minX: Math.min(...xs),
       maxX: Math.max(...xs),
       minY: Math.min(...ys),
-      maxY: Math.max(...ys)
+      maxY: Math.max(...ys),
     };
   }
 

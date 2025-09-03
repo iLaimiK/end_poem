@@ -58,10 +58,10 @@ export function isAllowedSecondaryCharacter(characterName: string): boolean {
  * @returns 包含时间和地点的对象
  */
 export function getCurrentTimeAndLocation(stat_data: Record<string, any>): CurrentTimeAndLocation {
-  const globalInfo = _.get(stat_data, "全局信息", {});
+  const globalInfo = _.get(stat_data, '全局信息', {});
   return {
-    时间: _.get(globalInfo, "时间", ""),
-    地点: _.get(globalInfo, "当前位置", ""),
-    日期: _.get(globalInfo, "日期", "")
+    时间: _.get(globalInfo, '时间', ''),
+    地点: _.get(globalInfo, '当前位置', ''),
+    日期: _.get(globalInfo, '日期', ''),
   };
 }

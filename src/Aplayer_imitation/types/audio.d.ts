@@ -14,7 +14,6 @@ export interface AudioTrack {
   cover: string;
 }
 
-
 /** 时间格式化结果 */
 export interface FormattedTime {
   /** 分钟 */

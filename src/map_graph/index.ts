@@ -40,7 +40,6 @@ class MapGraphManager {
 
       // 创建新的地图组件
       this.createMapContainer($mesText, mapText, messageId.toString());
-
     } catch (error) {
       console.error(`[MapGraph] 渲染消息 ${messageId} 失败:`, error);
     }
@@ -50,10 +49,7 @@ class MapGraphManager {
    * 查找消息元素
    */
   private findMessageElement(messageId: string): JQuery<HTMLElement> {
-    const selectors = [
-      `.mes[mesid="${messageId}"] .mes_text`,
-      `.mes[mesid="${messageId}"]`
-    ];
+    const selectors = [`.mes[mesid="${messageId}"] .mes_text`, `.mes[mesid="${messageId}"]`];
 
     for (const selector of selectors) {
       const $element = $(selector, window.parent.document);
@@ -85,7 +81,7 @@ class MapGraphManager {
 
       // 创建Vue应用，传入解析后的地图文本
       const app = createApp(MapContainer, {
-        mapText: mapText
+        mapText: mapText,
       });
 
       // 挂载应用
@@ -100,9 +96,8 @@ class MapGraphManager {
       this.activeApps.set(messageId, {
         app,
         mountPoint: $mountPoint,
-        mapData
+        mapData,
       });
-
     } catch (error) {
       console.error(`[MapGraph] 创建地图组件失败:`, error);
     }
@@ -115,7 +110,7 @@ class MapGraphManager {
     const scopeIds = new Set<string>();
 
     // 查找组件的scoped属性
-    $container.find('div').each(function() {
+    $container.find('div').each(function () {
       const attributes = this.getAttributeNames();
       attributes.forEach(attr => {
         if (attr.startsWith('data-v-')) {
@@ -183,8 +178,8 @@ class MapGraphManager {
       mapData: Array.from(this.activeApps.values()).map(app => ({
         nodeCount: app.mapData?.nodes?.length || 0,
         edgeCount: app.mapData?.edges?.length || 0,
-        movement: app.mapData?.free_movement
-      }))
+        movement: app.mapData?.free_movement,
+      })),
     };
   }
 }
@@ -215,4 +210,3 @@ $(window).on('pagehide', () => {
 
 // 导出供外部使用
 export { MapGraphManager };
-

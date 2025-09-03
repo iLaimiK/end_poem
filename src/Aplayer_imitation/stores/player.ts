@@ -22,7 +22,6 @@ export const usePlayerStore = defineStore('player', () => {
   const duration = ref<number>(0);
   const buffered = ref<number>(0);
 
-
   // 计算属性
   const currentTrack = computed(() => {
     return audioList.value[currentIndex.value] || null;
@@ -51,18 +50,20 @@ export const usePlayerStore = defineStore('player', () => {
   });
 
   // 获取完整状态
-  const playerState = computed((): PlayerState => ({
-    currentIndex: currentIndex.value,
-    isPlaying: isPlaying.value,
-    volume: volume.value,
-    previousVolume: previousVolume.value,
-    order: order.value,
-    isMinimized: isMinimized.value,
-    listFolded: listFolded.value,
-    currentTime: currentTime.value,
-    duration: duration.value,
-    buffered: buffered.value,
-  }));
+  const playerState = computed(
+    (): PlayerState => ({
+      currentIndex: currentIndex.value,
+      isPlaying: isPlaying.value,
+      volume: volume.value,
+      previousVolume: previousVolume.value,
+      order: order.value,
+      isMinimized: isMinimized.value,
+      listFolded: listFolded.value,
+      currentTime: currentTime.value,
+      duration: duration.value,
+      buffered: buffered.value,
+    }),
+  );
 
   // Actions
   const setAudioList = (tracks: AudioTrack[]) => {
@@ -129,9 +130,7 @@ export const usePlayerStore = defineStore('player', () => {
       case PlayOrder.REPEAT_ONE:
         return currentIndex.value;
       case PlayOrder.NONE:
-        return currentIndex.value >= audioList.value.length - 1
-          ? currentIndex.value
-          : currentIndex.value + 1;
+        return currentIndex.value >= audioList.value.length - 1 ? currentIndex.value : currentIndex.value + 1;
       case PlayOrder.LIST:
       default:
         return (currentIndex.value + 1) % audioList.value.length;
@@ -145,14 +144,10 @@ export const usePlayerStore = defineStore('player', () => {
       case PlayOrder.REPEAT_ONE:
         return currentIndex.value;
       case PlayOrder.NONE:
-        return currentIndex.value <= 0
-          ? currentIndex.value
-          : currentIndex.value - 1;
+        return currentIndex.value <= 0 ? currentIndex.value : currentIndex.value - 1;
       case PlayOrder.LIST:
       default:
-        return currentIndex.value === 0
-          ? audioList.value.length - 1
-          : currentIndex.value - 1;
+        return currentIndex.value === 0 ? audioList.value.length - 1 : currentIndex.value - 1;
     }
   };
 
@@ -230,7 +225,7 @@ export const usePlayerStore = defineStore('player', () => {
     try {
       replaceVariables(currentSettings, {
         type: 'script',
-        script_id: getScriptId()
+        script_id: getScriptId(),
       });
     } catch (error) {
       console.warn('[APlayer] 保存设置失败:', error);
