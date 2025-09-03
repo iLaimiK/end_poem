@@ -159,8 +159,7 @@ class MapGraphManager {
       await this.renderMessage(messageId);
     }, 500);
 
-    eventOn(tavern_events.CHARACTER_MESSAGE_RENDERED, handleMessageEvent);
-    eventOn(tavern_events.MESSAGE_UPDATED, handleMessageEvent);
+    eventOn(tavern_events.MESSAGE_RECEIVED, handleMessageEvent);
     eventOn(tavern_events.MESSAGE_SWIPED, handleMessageEvent);
   }
 
