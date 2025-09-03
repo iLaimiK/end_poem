@@ -17,6 +17,12 @@ export const DEFAULT_AUDIOS: AudioTrack[] = [
     cover: "https://p2.music.126.net/BRkOispUjB7V_lxC990G7A==/109951166086738670.jpg?param=140y140",
   },
   {
+    name: "业火的红莲",
+    artist: "逆理的钢琴师",
+    url: "https://gitgud.io/yoyo514/elegy-for-the-end/-/raw/master/music/%E4%B8%9A%E7%81%AB%E7%9A%84%E7%BA%A2%E8%8E%B2%20-%20%E9%80%86%E7%90%86%E7%9A%84%E9%92%A2%E7%90%B4%E5%B8%88.mp3",
+    cover: "http://p2.music.126.net/LMZ6VWw5hil_odFv6MGYXQ==/109951169607637648.jpg?param=140y140"
+  },
+  {
     name: "カスカナヒカリ",
     artist: "藤間仁",
     url: "https://gitgud.io/yoyo514/elegy-for-the-end/-/raw/master/music/%E3%82%AB%E3%82%B9%E3%82%AB%E3%83%8A%E3%83%92%E3%82%AB%E3%83%AA%20-%20%E8%97%A4%E9%96%93%E4%BB%81.mp3",
@@ -57,6 +63,12 @@ export const DEFAULT_AUDIOS: AudioTrack[] = [
     artist: "路灰气球",
     url: "https://gitgud.io/yoyo514/elegy-for-the-end/-/raw/master/music/%E6%B5%B7%E9%B8%A3%20-%20%E8%B7%AF%E7%81%B0%E6%B0%94%E7%90%83.mp3",
     cover: "https://p2.music.126.net/YU9RRPiWMFMXRPr-nMY4BQ==/109951168882397092.jpg?param=140y140",
+  },
+  {
+    name: "活着就是一种伟大",
+    artist: "Maple暖枫",
+    url: "https://gitgud.io/yoyo514/elegy-for-the-end/-/raw/master/music/%E6%B4%BB%E7%9D%80%E5%B0%B1%E6%98%AF%E4%B8%80%E7%A7%8D%E4%BC%9F%E5%A4%A7%20-%20Maple%E6%9A%96%E6%9E%AB.mp3",
+    cover: "http://p1.music.126.net/QeXscV_m8uriJ-rt6EQPZQ==/109951168939820951.jpg?param=140y140"
   },
   {
     name: "Lily",
