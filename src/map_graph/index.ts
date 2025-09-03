@@ -160,6 +160,7 @@ class MapGraphManager {
     }, 500);
 
     eventOn(tavern_events.MESSAGE_RECEIVED, handleMessageEvent);
+    eventOn(tavern_events.MESSAGE_UPDATED, handleMessageEvent);
     eventOn(tavern_events.MESSAGE_SWIPED, handleMessageEvent);
   }
 
