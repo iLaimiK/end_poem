@@ -10,6 +10,9 @@ const props = defineProps<Props>();
 const expanded = ref(false);
 
 const getThemeClass = () => {
+  // 添加空值检查
+  if (!props.character?.name) return '';
+
   const themeMap: Record<string, string> = {
     白: 'theme-shiro',
     澪: 'theme-mio',
@@ -21,6 +24,9 @@ const getThemeClass = () => {
 };
 
 const getRoleClass = () => {
+  // 添加空值检查
+  if (!props.character?.name) return 'role-tag primary';
+
   if (props.character.name === '白') return 'role-tag mysterious';
   if (props.character.name === 'user' || !['白', '澪', 'Lily', '布施翠', '蛭子小比奈'].includes(props.character.name))
     return 'role-tag primary';
@@ -39,7 +45,10 @@ const toggleExpanded = () => {
 };
 
 const isMysterious = () => props.character.name === '白';
-const isSpecialCharacter = () => ['Lily', '布施翠', '蛭子小比奈'].includes(props.character.name);
+const isSpecialCharacter = () => {
+  const name = props.character?.name;
+  return name ? ['Lily', '布施翠', '蛭子小比奈'].includes(name) : false;
+};
 </script>
 
 <template>
