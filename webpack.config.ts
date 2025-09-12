@@ -81,6 +81,7 @@ function watch_it(compiler: webpack.Compiler) {
       console.info(`[Listener] 已启动酒馆监听服务, 正在监听: http://0.0.0.0:${port}`);
       io.on('connect', socket => {
         console.info(`[Listener] 成功连接到酒馆网页 '${socket.id}', 初始化推送...`);
+        io.emit('iframe_updated');
         socket.on('disconnect', reason => {
           console.info(`[Listener] 与酒馆网页 '${socket.id}' 断开连接: ${reason}`);
         });
@@ -185,7 +186,7 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
             entry.html === undefined
               ? <any[]>[
                   {
-                    test: /\.vue\.s(a|c)ss$/,
+                    test: /\.vue\.s[ac]ss$/,
                     use: [
                       'vue-style-loader',
                       { loader: 'css-loader', options: { url: false } },
@@ -300,40 +301,38 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
         },
       },
     },
-    externals: [
-      ({ context, request }, callback) => {
-        if (!context || !request) {
-          return callback();
-        }
+    externals: ({ context, request }, callback) => {
+      if (!context || !request) {
+        return callback();
+      }
 
-        if (
-          request.startsWith('-') ||
-          request.startsWith('.') ||
-          request.startsWith('/') ||
-          request.startsWith('!') ||
-          request.startsWith('http') ||
-          path.isAbsolute(request) ||
-          fs.existsSync(path.join(context, request)) ||
-          fs.existsSync(request)
-        ) {
-          return callback();
-        }
+      if (
+        request.startsWith('-') ||
+        request.startsWith('.') ||
+        request.startsWith('/') ||
+        request.startsWith('!') ||
+        request.startsWith('http') ||
+        path.isAbsolute(request) ||
+        fs.existsSync(path.join(context, request)) ||
+        fs.existsSync(request)
+      ) {
+        return callback();
+      }
 
-        const builtin = {
-          jquery: '$',
-          lodash: '_',
-          toastr: 'toastr',
-          vue: 'Vue',
-          'vue-router': 'VueRouter',
-          yaml: 'YAML',
-          zod: 'z',
-        };
-        if (request in builtin) {
-          return callback(null, 'var ' + builtin[request as keyof typeof builtin]);
-        }
-        return callback(null, 'module-import https://testingcf.jsdelivr.net/npm/' + request + '/+esm');
-      },
-    ],
+      const builtin = {
+        jquery: '$',
+        lodash: '_',
+        toastr: 'toastr',
+        vue: 'Vue',
+        'vue-router': 'VueRouter',
+        yaml: 'YAML',
+        zod: 'z',
+      };
+      if (request in builtin) {
+        return callback(null, 'var ' + builtin[request as keyof typeof builtin]);
+      }
+      return callback(null, 'module-import https://testingcf.jsdelivr.net/npm/' + request + '/+esm');
+    },
   });
 }
 
