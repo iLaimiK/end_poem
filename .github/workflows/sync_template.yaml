@@ -27,4 +27,6 @@ jobs:
           is_pr_cleanup: true
           template_sync_ignore_file_path: .github/.templatesyncignore
           is_force_deletion: true
+          is_force_push_pr: true
+          pr_branch_name_prefix: chore/template-sync
           git_remote_pull_params: --allow-unrelated-histories --strategy=recursive --no-edit -X diff-algorithm=minimal -X ignore-all-space -X patience -X renormalize
