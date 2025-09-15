@@ -31,7 +31,7 @@ export class DataService {
    */
   private getCurrentMessageId(): string {
     try {
-      // @ts-ignore - 酒馆助手的函数
+      // @ts-expect-error - 酒馆助手的函数
       return getCurrentMessageId();
     } catch (error) {
       console.warn('Failed to get current message ID:', error);
@@ -44,7 +44,7 @@ export class DataService {
    */
   private getVariables(params: TavernVariables): any {
     try {
-      // @ts-ignore - 酒馆助手提供的函数
+      // @ts-expect-error - 酒馆助手提供的函数
       return getVariables(params);
     } catch (error) {
       console.warn('Failed to get variables:', error);

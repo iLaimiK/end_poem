@@ -143,6 +143,12 @@ export function checkTypeCompatibility(
     return { compatible: true, oldType, newType }; // 从空值到有值是允许的
   }
 
+  // 从有值变为空值也是允许的
+  if ((oldType !== 'null' && oldType !== 'undefined') &&
+      (newType === 'null' || newType === 'undefined')) {
+    return { compatible: true, oldType, newType }; // 从有值到空值是允许的
+  }
+
   // 字符串和数字的转换检查
   if (oldType === 'string' && numericTypes.includes(newType)) {
     return {
