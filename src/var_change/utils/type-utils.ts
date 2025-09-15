@@ -144,8 +144,7 @@ export function checkTypeCompatibility(
   }
 
   // 从有值变为空值也是允许的
-  if ((oldType !== 'null' && oldType !== 'undefined') &&
-      (newType === 'null' || newType === 'undefined')) {
+  if (oldType !== 'null' && oldType !== 'undefined' && (newType === 'null' || newType === 'undefined')) {
     return { compatible: true, oldType, newType }; // 从有值到空值是允许的
   }
 
