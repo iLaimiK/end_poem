@@ -1,6 +1,7 @@
 import { CHANGE_LIMITS } from '../config/change-limits';
 import { VALUE_CONSTRAINTS } from '../config/value-constraints';
 import type { ChangeLimitConfig, NumberConstraintFunction } from '../types/index';
+import { checkTypeCompatibility, generateTypeWarningMessage } from '../utils/type-utils';
 
 /**
  * 获取变化限制配置
@@ -108,6 +109,46 @@ export function applyChangeLimit(
   }
 
   return newValue; // 在允许范围内
+}
+
+/**
+ * 检查类型兼容性并显示警告
+ * @param path - 变量路径
+ * @param oldValue - 旧值
+ * @param newValue - 新值
+ */
+export function checkAndWarnTypeCompatibility(path: string, oldValue: any, newValue: any): void {
+  // 跳过 null/undefined 的旧值检查
+  if (oldValue === null || oldValue === undefined) {
+    return;
+  }
+
+  const typeCheck = checkTypeCompatibility(oldValue, newValue);
+
+  if (!typeCheck.compatible) {
+    const warningMessage = generateTypeWarningMessage(path, oldValue, newValue, typeCheck);
+
+    // 使用 toastr 显示警告
+    if (typeof toastr !== 'undefined') {
+      toastr.warning(warningMessage, '类型不匹配警告', {
+        timeOut: 10000, // 10秒后自动消失
+        extendedTimeOut: 5000,
+        closeButton: true,
+        progressBar: true,
+        positionClass: 'toast-top-center'
+      });
+    } else {
+      // 降级到控制台警告
+      console.warn(`[类型检查警告] ${warningMessage}`);
+    }
+
+    // 同时记录到控制台用于调试
+    console.warn(`[类型不匹配] ${path}: ${typeCheck.oldType} -> ${typeCheck.newType}`, {
+      oldValue,
+      newValue,
+      reason: typeCheck.reason
+    });
+  }
 }
 
 /**
