@@ -1,9 +1,9 @@
 <script setup lang="ts">
 interface Props {
-  anomalies: Record<string, string>
+  anomalies: Record<string, string>;
 }
 
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 </script>
 
 <template>
@@ -16,12 +16,7 @@ const props = defineProps<Props>()
         </div>
       </div>
       <div class="anomaly-list">
-        <div
-          v-for="(description, type) in anomalies"
-          :key="type"
-          class="anomaly-item"
-          data-severity="medium"
-        >
+        <div v-for="(description, type) in anomalies" :key="type" class="anomaly-item" data-severity="medium">
           <div class="anomaly-severity"></div>
           <div class="anomaly-content">
             <div class="anomaly-type">{{ type }}</div>
@@ -159,7 +154,7 @@ const props = defineProps<Props>()
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4CAF50, #45a049);
+  background: linear-gradient(135deg, #4caf50, #45a049);
   color: white;
   display: flex;
   align-items: center;

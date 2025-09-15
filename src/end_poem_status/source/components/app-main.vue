@@ -5,7 +5,7 @@
     <router-view>
       <template #default="{ Component, route }">
         <transition name="fade-transform" mode="out-in">
-            <component :is="Component" :key="route.fullPath" />
+          <component :is="Component" :key="route.fullPath" />
         </transition>
       </template>
     </router-view>

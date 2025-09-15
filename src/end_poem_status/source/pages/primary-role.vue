@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import CharacterCard from '../components/character-card.vue'
-import { useAppData } from '../composables/useAppData'
-import { appState } from '../stores/app-state'
-import type { Character } from '../types/character.d.ts'
+import { computed } from 'vue';
+import CharacterCard from '../components/character-card.vue';
+import { useAppData } from '../composables/useAppData';
+import { appState } from '../stores/app-state';
+import type { Character } from '../types/character.d.ts';
 
 // 使用应用数据组合式API
-const { charactersData, specialCharacterData } = useAppData()
+const { charactersData, specialCharacterData } = useAppData();
 
 // 计算属性：获取当前可见的主要角色列表
 const visibleCharacters = computed<Character[]>(() => {
@@ -67,11 +67,7 @@ const visibleCharacters = computed<Character[]>(() => {
 
 <template>
   <div class="main-characters-container">
-    <CharacterCard
-      v-for="character in visibleCharacters"
-      :key="character.name"
-      :character="character"
-    />
+    <CharacterCard v-for="character in visibleCharacters" :key="character.name" :character="character" />
   </div>
 </template>
 

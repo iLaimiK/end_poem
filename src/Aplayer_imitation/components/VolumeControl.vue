@@ -45,7 +45,7 @@ const calculateVolumeFromEvent = (event: MouseEvent) => {
     percentage = 0;
   } else {
     // 正常范围内的计算
-    percentage = 1 - (offsetY / barHeight);
+    percentage = 1 - offsetY / barHeight;
   }
 
   const newVolume = Math.max(0, Math.min(1, percentage));

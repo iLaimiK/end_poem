@@ -20,7 +20,9 @@
   font-size: clamp(1.8rem, 5vw, 2.8rem);
   font-weight: 400;
   position: relative;
-  text-shadow: 0 0 20px rgba(74, 158, 255, 0.5), 0 0 30px rgba(99, 102, 241, 0.3),
+  text-shadow:
+    0 0 20px rgba(74, 158, 255, 0.5),
+    0 0 30px rgba(99, 102, 241, 0.3),
     0 0 40px rgba(20, 184, 166, 0.15);
   background: linear-gradient(
     45deg,

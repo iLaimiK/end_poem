@@ -1,27 +1,23 @@
 <script setup lang="ts">
 interface Props {
-  title: string
-  cardClass?: string
-  gridArea?: string
-  iconPath: string
-  indicatorClass?: string
-  showIndicator?: boolean
+  title: string;
+  cardClass?: string;
+  gridArea?: string;
+  iconPath: string;
+  indicatorClass?: string;
+  showIndicator?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   cardClass: '',
   gridArea: '',
   indicatorClass: '',
-  showIndicator: true
-})
+  showIndicator: true,
+});
 </script>
 
 <template>
-  <div
-    class="status-card"
-    :class="cardClass"
-    :style="gridArea ? { gridArea } : {}"
-  >
+  <div class="status-card" :class="cardClass" :style="gridArea ? { gridArea } : {}">
     <div class="card-header">
       <svg class="card-icon" viewBox="0 0 24 24" fill="currentColor">
         <path :d="iconPath" />
@@ -29,11 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
       <h3 class="card-title">{{ title }}</h3>
       <!-- 操作按钮插槽，优先级高于指示器 -->
       <slot name="action"></slot>
-      <div
-        v-if="showIndicator && !$slots.action"
-        class="status-indicator"
-        :class="indicatorClass"
-      ></div>
+      <div v-if="showIndicator && !$slots.action" class="status-indicator" :class="indicatorClass"></div>
     </div>
     <div class="card-content">
       <slot />

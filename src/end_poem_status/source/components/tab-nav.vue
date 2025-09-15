@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router';
 
-const router = useRouter()
-const route = useRoute()
+const router = useRouter();
+const route = useRoute();
 
 const tabItems = [
   { path: '/global', label: '世界状态', name: 'Global' },
   { path: '/primary-role', label: '旅行同伴', name: 'PrimaryRole' },
-  { path: '/plot-role', label: '邂逅之人', name: 'PlotRole' }
-]
+  { path: '/plot-role', label: '邂逅之人', name: 'PlotRole' },
+];
 
 const handleTabClick = (path: string) => {
-  router.push(path)
-}
+  router.push(path);
+};
 </script>
 
 <template>

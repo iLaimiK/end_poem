@@ -63,7 +63,10 @@ export function getDetailedType(value: any): string {
  * @param newValue - 新值
  * @returns 类型检查结果
  */
-export function checkTypeCompatibility(oldValue: any, newValue: any): {
+export function checkTypeCompatibility(
+  oldValue: any,
+  newValue: any,
+): {
   compatible: boolean;
   oldType: string;
   newType: string;
@@ -106,7 +109,7 @@ export function checkTypeCompatibility(oldValue: any, newValue: any): {
           compatible: false,
           oldType,
           newType,
-          reason: `数组长度变化过大 (${oldLength} -> ${newLength})`
+          reason: `数组长度变化过大 (${oldLength} -> ${newLength})`,
         };
       }
 
@@ -118,7 +121,7 @@ export function checkTypeCompatibility(oldValue: any, newValue: any): {
             compatible: false,
             oldType,
             newType,
-            reason: `数组内容从单一类型变为混合类型`
+            reason: `数组内容从单一类型变为混合类型`,
           };
         }
 
@@ -127,7 +130,7 @@ export function checkTypeCompatibility(oldValue: any, newValue: any): {
           compatible: false,
           oldType,
           newType,
-          reason: `数组内容类型从 ${oldContentType} 变为 ${newContentType}`
+          reason: `数组内容类型从 ${oldContentType} 变为 ${newContentType}`,
         };
       }
 
@@ -136,8 +139,7 @@ export function checkTypeCompatibility(oldValue: any, newValue: any): {
   }
 
   // null 和 undefined 的特殊处理
-  if ((oldType === 'null' || oldType === 'undefined') &&
-      (newType !== 'null' && newType !== 'undefined')) {
+  if ((oldType === 'null' || oldType === 'undefined') && newType !== 'null' && newType !== 'undefined') {
     return { compatible: true, oldType, newType }; // 从空值到有值是允许的
   }
 
@@ -147,7 +149,7 @@ export function checkTypeCompatibility(oldValue: any, newValue: any): {
       compatible: false,
       oldType,
       newType,
-      reason: '字符串类型不应直接变为数值类型'
+      reason: '字符串类型不应直接变为数值类型',
     };
   }
 
@@ -156,7 +158,7 @@ export function checkTypeCompatibility(oldValue: any, newValue: any): {
       compatible: false,
       oldType,
       newType,
-      reason: '数值类型不应直接变为字符串类型'
+      reason: '数值类型不应直接变为字符串类型',
     };
   }
 
@@ -164,24 +166,22 @@ export function checkTypeCompatibility(oldValue: any, newValue: any): {
   const basicTypes = ['string', 'boolean', 'integer', 'float'];
   const complexTypes = ['object'];
 
-  if (basicTypes.includes(oldType) &&
-      (complexTypes.includes(newType) || newType.startsWith('array['))) {
+  if (basicTypes.includes(oldType) && (complexTypes.includes(newType) || newType.startsWith('array['))) {
     return {
       compatible: false,
       oldType,
       newType,
-      reason: `基础类型 ${oldType} 不应变为复杂类型 ${newType}`
+      reason: `基础类型 ${oldType} 不应变为复杂类型 ${newType}`,
     };
   }
 
   // 复杂类型到基础类型的转换
-  if ((complexTypes.includes(oldType) || oldType.startsWith('array[')) &&
-      basicTypes.includes(newType)) {
+  if ((complexTypes.includes(oldType) || oldType.startsWith('array[')) && basicTypes.includes(newType)) {
     return {
       compatible: false,
       oldType,
       newType,
-      reason: `复杂类型 ${oldType} 不应变为基础类型 ${newType}`
+      reason: `复杂类型 ${oldType} 不应变为基础类型 ${newType}`,
     };
   }
 
@@ -191,7 +191,7 @@ export function checkTypeCompatibility(oldValue: any, newValue: any): {
       compatible: false,
       oldType,
       newType,
-      reason: '布尔值不应变为其他类型'
+      reason: '布尔值不应变为其他类型',
     };
   }
 
@@ -200,17 +200,16 @@ export function checkTypeCompatibility(oldValue: any, newValue: any): {
       compatible: false,
       oldType,
       newType,
-      reason: '其他类型不应变为布尔值'
+      reason: '其他类型不应变为布尔值',
     };
   }
-
 
   // 其他类型不兼容
   return {
     compatible: false,
     oldType,
     newType,
-    reason: `类型从 ${oldType} 变为 ${newType} 可能存在问题`
+    reason: `类型从 ${oldType} 变为 ${newType} 可能存在问题`,
   };
 }
 
@@ -226,7 +225,7 @@ export function generateTypeWarningMessage(
   path: string,
   oldValue: any,
   newValue: any,
-  typeCheck: ReturnType<typeof checkTypeCompatibility>
+  typeCheck: ReturnType<typeof checkTypeCompatibility>,
 ): string {
   const { oldType, newType, reason } = typeCheck;
 

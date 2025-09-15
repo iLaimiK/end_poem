@@ -30,7 +30,7 @@ import TabNav from '../components/tab-nav.vue';
   contain: layout style;
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;

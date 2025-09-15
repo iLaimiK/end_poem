@@ -20,11 +20,7 @@ const sideCharacters = computed<SideCharacter[]>(() => {
   <div class="side-characters-container">
     <!-- 次要角色列表 -->
     <div v-if="sideCharacters.length > 0" class="side-character-list">
-      <SideCharacterCard
-        v-for="character in sideCharacters"
-        :key="character.name"
-        :character="character"
-      />
+      <SideCharacterCard v-for="character in sideCharacters" :key="character.name" :character="character" />
     </div>
 
     <!-- 空状态占位符 -->
@@ -32,17 +28,21 @@ const sideCharacters = computed<SideCharacter[]>(() => {
       <div class="empty-state-content">
         <div class="empty-state-icon">
           <svg viewBox="0 0 24 24" fill="currentColor" class="icon">
-            <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"/>
+            <path
+              d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"
+            />
           </svg>
         </div>
         <h3 class="empty-state-title">暂无邂逅之人</h3>
         <p class="empty-state-description">
-          在这片广袤的世界中，你尚未与其他旅行者产生交集。<br>
+          在这片广袤的世界中，你尚未与其他旅行者产生交集。<br />
           当命运的丝线将你们联系在一起时，他们的身影将会出现在这里。
         </p>
         <div class="empty-state-footer">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-            <path d="M4,4H7L9,2H15L17,4H20A2,2 0 0,1 22,6V18A2,2 0 0,1 20,20H4A2,2 0 0,1 2,18V6A2,2 0 0,1 4,4M12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9Z"/>
+            <path
+              d="M4,4H7L9,2H15L17,4H20A2,2 0 0,1 22,6V18A2,2 0 0,1 20,20H4A2,2 0 0,1 2,18V6A2,2 0 0,1 4,4M12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9Z"
+            />
           </svg>
           <span>等待命运的邂逅...</span>
         </div>
@@ -84,12 +84,7 @@ const sideCharacters = computed<SideCharacter[]>(() => {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(139, 170, 199, 0.1),
-      transparent
-    );
+    background: linear-gradient(90deg, transparent, rgba(139, 170, 199, 0.1), transparent);
     transition: left 0.6s ease;
   }
 

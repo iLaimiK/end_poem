@@ -1,21 +1,18 @@
 <script setup lang="ts">
 interface Props {
-  plotProgress: string
-  plotNodes: string[]
-  isExpanded?: boolean
+  plotProgress: string;
+  plotNodes: string[];
+  isExpanded?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  isExpanded: false
-})
+  isExpanded: false,
+});
 </script>
 
 <template>
   <div class="plot-content">
-    <div
-      class="plot-display"
-      :class="{ collapsed: !isExpanded }"
-    >
+    <div class="plot-display" :class="{ collapsed: !isExpanded }">
       <div class="plot-header">
         <span class="plot-label">当前进度</span>
         <span class="plot-progress">{{ plotProgress }}</span>
@@ -24,17 +21,8 @@ const props = withDefaults(defineProps<Props>(), {
       <div class="plot-nodes-section">
         <div class="plot-section-title">剧情节点记录</div>
         <div class="plot-nodes-list">
-          <div
-            v-if="plotNodes.length === 0"
-            class="plot-node-item no-data"
-          >
-            暂无剧情节点记录
-          </div>
-          <div
-            v-for="(node, index) in plotNodes"
-            :key="index"
-            class="plot-node-item"
-          >
+          <div v-if="plotNodes.length === 0" class="plot-node-item no-data">暂无剧情节点记录</div>
+          <div v-for="(node, index) in plotNodes" :key="index" class="plot-node-item">
             {{ node }}
           </div>
         </div>

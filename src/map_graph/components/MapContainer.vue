@@ -5,20 +5,14 @@
         <div class="map_title">{{ title }}</div>
         <div class="map_movement"><i :class="movementIcon.class"></i>{{ movementIcon.text }}</div>
       </div>
-      <div class="monitor-screen" :class="{ 'grabbing': isDragging }">
+      <div class="monitor-screen" :class="{ grabbing: isDragging }">
         <canvas ref="mapCanvas"></canvas>
 
         <!-- 使用独立的控制组件 -->
-        <MapControls
-          @zoom-in="handleZoomIn"
-          @zoom-out="handleZoomOut"
-          @reset-view="handleResetView"
-        />
+        <MapControls @zoom-in="handleZoomIn" @zoom-out="handleZoomOut" @reset-view="handleResetView" />
 
         <!-- 缩放提示 -->
-        <div class="zoom_indicator" v-if="showZoomIndicator">
-          {{ Math.round(currentZoom * 100) }}%
-        </div>
+        <div class="zoom_indicator" v-if="showZoomIndicator">{{ Math.round(currentZoom * 100) }}%</div>
       </div>
     </div>
   </div>
@@ -86,10 +80,7 @@ const initializeRenderer = () => {
     renderer.setMapData(mapData.value);
 
     // 初始化交互控制器
-    interaction = new MapInteraction(
-      mapCanvas.value,
-      renderer
-    );
+    interaction = new MapInteraction(mapCanvas.value, renderer);
 
     setupDragStateListener();
     setupCanvasResize();
@@ -309,7 +300,6 @@ onUnmounted(() => {
       background-color: transparent;
     }
 
-
     .zoom_indicator {
       position: absolute;
       top: 10px;
@@ -345,7 +335,6 @@ onUnmounted(() => {
       // 优化触摸体验
       touch-action: manipulation;
 
-
       .zoom_indicator {
         top: 8px;
         left: 8px;
@@ -371,7 +360,6 @@ onUnmounted(() => {
   .map_graph {
     .monitor-screen {
       min-height: 300px;
-
 
       .zoom_indicator {
         top: 6px;

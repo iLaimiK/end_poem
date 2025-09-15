@@ -135,7 +135,7 @@ export function checkAndWarnTypeCompatibility(path: string, oldValue: any, newVa
         extendedTimeOut: 5000,
         closeButton: true,
         progressBar: true,
-        positionClass: 'toast-top-center'
+        positionClass: 'toast-top-center',
       });
     } else {
       // 降级到控制台警告
@@ -146,7 +146,7 @@ export function checkAndWarnTypeCompatibility(path: string, oldValue: any, newVa
     console.warn(`[类型不匹配] ${path}: ${typeCheck.oldType} -> ${typeCheck.newType}`, {
       oldValue,
       newValue,
-      reason: typeCheck.reason
+      reason: typeCheck.reason,
     });
   }
 }

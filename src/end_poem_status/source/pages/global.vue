@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import AnomalyDisplay from '../components/anomaly-display.vue'
-import PlotDisplay from '../components/plot-display.vue'
-import StatusCard from '../components/status-card.vue'
-import { useAppData } from '../composables/useAppData'
+import { computed, ref } from 'vue';
+import AnomalyDisplay from '../components/anomaly-display.vue';
+import PlotDisplay from '../components/plot-display.vue';
+import StatusCard from '../components/status-card.vue';
+import { useAppData } from '../composables/useAppData';
 
 // 使用应用数据组合式API
-const { worldData } = useAppData()
+const { worldData } = useAppData();
 
 // 剧情记录的展开状态
-const isPlotExpanded = ref(false)
+const isPlotExpanded = ref(false);
 
 const togglePlotExpand = () => {
-  isPlotExpanded.value = !isPlotExpanded.value
-}
+  isPlotExpanded.value = !isPlotExpanded.value;
+};
 
 // 计算属性，从真实数据中提取显示数据
 const displayData = computed(() => {
-  const globalInfo = worldData.value.全局信息
-  const plotRecord = worldData.value.plot_record
+  const globalInfo = worldData.value.全局信息;
+  const plotRecord = worldData.value.plot_record;
 
   return {
     date: globalInfo.日期 || '未知',
@@ -27,18 +27,21 @@ const displayData = computed(() => {
     weather: globalInfo.天气 || '未知',
     anomalies: globalInfo.异常 || {},
     plotProgress: plotRecord.剧情进度 || 'v1',
-    plotNodes: plotRecord.剧情节点记录 || ['暂无剧情节点记录']
-  }
-})
+    plotNodes: plotRecord.剧情节点记录 || ['暂无剧情节点记录'],
+  };
+});
 
 // SVG 图标路径常量
 const iconPaths = {
-  clock: "M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.7L16.2,16.2Z",
-  location: "M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22S19,14.25 19,9A7,7 0 0,0 12,2Z",
-  weather: "M12,18C8.69,18 6,15.31 6,12A6,6 0 0,1 12,6C15.31,6 18,8.69 18,12A6,6 0 0,1 12,18M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8M12,1L15.39,4.39L12,7.78L8.61,4.39L12,1M1,12L4.39,8.61L7.78,12L4.39,15.39L1,12M16.22,12L19.61,8.61L23,12L19.61,15.39L16.22,12M12,16.22L15.39,19.61L12,23L8.61,19.61L12,16.22Z",
-  warning: "M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z",
-  document: "M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"
-}
+  clock:
+    'M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.7L16.2,16.2Z',
+  location:
+    'M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22S19,14.25 19,9A7,7 0 0,0 12,2Z',
+  weather:
+    'M12,18C8.69,18 6,15.31 6,12A6,6 0 0,1 12,6C15.31,6 18,8.69 18,12A6,6 0 0,1 12,18M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8M12,1L15.39,4.39L12,7.78L8.61,4.39L12,1M1,12L4.39,8.61L7.78,12L4.39,15.39L1,12M16.22,12L19.61,8.61L23,12L19.61,15.39L16.22,12M12,16.22L15.39,19.61L12,23L8.61,19.61L12,16.22Z',
+  warning: 'M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z',
+  document: 'M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z',
+};
 </script>
 
 <template>
@@ -114,12 +117,7 @@ const iconPaths = {
             @click="togglePlotExpand"
             aria-label="展开/收起剧情记录"
           >
-            <svg
-              viewBox="0 0 24 24"
-              width="20"
-              height="20"
-              fill="currentColor"
-            >
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
               <path d="M7,10L12,15L17,10H7Z" />
             </svg>
           </button>
