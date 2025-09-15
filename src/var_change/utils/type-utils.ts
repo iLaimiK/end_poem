@@ -115,6 +115,11 @@ export function checkTypeCompatibility(
 
       // 内容类型兼容性检查
       if (oldContentType !== newContentType) {
+        // 数组被清空是允许的（从任何类型变为empty）
+        if (newContentType === 'empty') {
+          return { compatible: true, oldType, newType };
+        }
+
         // 同质数组变为混合数组
         if (newContentType.startsWith('mixed(')) {
           return {
