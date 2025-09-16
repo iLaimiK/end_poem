@@ -319,7 +319,11 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
         return callback();
       }
 
-      const builtin = {
+      const builtin = ['vue-demi'];
+      if (builtin.includes(request)) {
+        return callback();
+      }
+      const global = {
         jquery: '$',
         lodash: '_',
         toastr: 'toastr',
@@ -328,10 +332,16 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
         yaml: 'YAML',
         zod: 'z',
       };
-      if (request in builtin) {
-        return callback(null, 'var ' + builtin[request as keyof typeof builtin]);
+      if (request in global) {
+        return callback(null, 'var ' + global[request as keyof typeof global]);
       }
-      return callback(null, 'module-import https://testingcf.jsdelivr.net/npm/' + request + '/+esm');
+      const cdn = {
+        sass: 'https://jspm.dev/sass',
+      };
+      return callback(
+        null,
+        'module-import ' + (cdn[request as keyof typeof cdn] ?? `https://testingcf.jsdelivr.net/npm/${request}/+esm`),
+      );
     },
   });
 }
