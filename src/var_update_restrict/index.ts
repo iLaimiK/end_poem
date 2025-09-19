@@ -55,7 +55,7 @@ function isComplexType(value: any): boolean {
   }
 
   // Check for array or object
-  return Array.isArray(value) || (typeof value === 'object');
+  return Array.isArray(value) || typeof value === 'object';
 }
 
 /**
@@ -67,8 +67,7 @@ function cleanPath(pathArg: string): string {
   let path = pathArg.trim();
 
   // Remove surrounding quotes (single or double)
-  if ((path.startsWith('"') && path.endsWith('"')) ||
-      (path.startsWith("'") && path.endsWith("'"))) {
+  if ((path.startsWith('"') && path.endsWith('"')) || (path.startsWith("'") && path.endsWith("'"))) {
     path = path.slice(1, -1);
   }
 
@@ -113,7 +112,7 @@ function filterComplexSetCommands(text: string): string {
           debugLog(`Found complex variable update command, removing: "${path}"`, {
             currentValue: currentValue,
             valueType: Array.isArray(currentValue) ? 'array' : 'object',
-            command: match.trim()
+            command: match.trim(),
           });
 
           filteredCount++;
@@ -123,7 +122,6 @@ function filterComplexSetCommands(text: string): string {
         // Simple type variable, keep command
         debugLog(`Simple variable update, keeping: "${path}" (${typeof currentValue})`);
         return match;
-
       } catch (error) {
         // Error parsing single command, conservative approach: keep command
         debugLog(`Error parsing command, keeping original: ${match.trim()}`, error);
@@ -137,7 +135,6 @@ function filterComplexSetCommands(text: string): string {
     }
 
     return filteredText;
-
   } catch (error) {
     // Overall filtering error, return original text
     debugLog('Serious error during filtering process, returning original text', error);
@@ -181,16 +178,20 @@ function initializeEventListeners(): void {
       if (filteredContent !== originalContent) {
         debugLog(`Message ${message_id} content filtered, updating...`);
 
-        await setChatMessages([{
-          message_id: message_id,
-          message: filteredContent
-        }], { refresh: 'none' });
+        await setChatMessages(
+          [
+            {
+              message_id: message_id,
+              message: filteredContent,
+            },
+          ],
+          { refresh: 'none' },
+        );
 
         debugLog(`Message ${message_id} update completed`);
       } else {
         debugLog(`Message ${message_id} needs no filtering`);
       }
-
     } catch (error) {
       debugLog(`Error processing message ${message_id}:`, error);
     }
@@ -208,18 +209,19 @@ $(() => {
   debugLog('MVU variable update restriction script starting...');
 
   // Wait for MVU framework initialization
-  waitGlobalInitialized('Mvu').then(() => {
-    debugLog('MVU framework initialized, setting up filter');
+  waitGlobalInitialized('Mvu')
+    .then(() => {
+      debugLog('MVU framework initialized, setting up filter');
 
-    // Initialize event listeners
-    initializeEventListeners();
+      // Initialize event listeners
+      initializeEventListeners();
 
-    // Show startup success message
-    debugLog('MVU variable update restriction script startup completed');
-
-  }).catch((error) => {
-    debugLog('Error waiting for MVU initialization:', error);
-  });
+      // Show startup success message
+      debugLog('MVU variable update restriction script startup completed');
+    })
+    .catch(error => {
+      debugLog('Error waiting for MVU initialization:', error);
+    });
 });
 
 // ==================== Cleanup on Unload ====================
