@@ -6,7 +6,7 @@ import {
 } from './handlers/character-handler';
 import { deduplicatePlotNodeRecords, handlePlotProgress } from './handlers/plot-handler';
 import { handleMioStabilizer } from './handlers/special-handler';
-import { validateAndFixValue, checkAndWarnTypeCompatibility } from './handlers/validation-handler';
+import { validateAndFixValue } from './handlers/validation-handler';
 import { updateWorldbookScanText } from './handlers/worldbook-handler';
 import type { PendingValidation } from './types';
 
@@ -44,9 +44,6 @@ function variableUpdateStarted(variables: Record<string, any>): void {
  */
 function variableUpdated(stat_data: Record<string, any>, path: string, oldValue: any, newValue: any): void {
   console.log(`Variable updated: ${path} from ${oldValue} to ${newValue}`);
-
-  // 立即进行类型兼容性检查
-  checkAndWarnTypeCompatibility(path, oldValue, newValue);
 
   // 记录需要验证的更新
   PENDING_VALIDATIONS.push({
