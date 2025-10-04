@@ -5,7 +5,7 @@
     "watch": "webpack --mode development --watch --progress",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss,html,vue}\"",
     "lint": "eslint",
-    "lint:fix": "eslint"
+    "lint:fix": "eslint --fix"
   },
   "browserslist": [
     "defaults and partially supports es6-module"
@@ -80,5 +80,6 @@
       "unrs-resolver",
       "vue-demi"
     ]
-  }
+  },
+  "packageManager": "pnpm@10.17.1+sha512.17c560fca4867ae9473a3899ad84a88334914f379be46d455cbf92e5cf4b39d34985d452d2583baf19967fa76cb5c17bc9e245529d0b98745721aa7200ecaf7a"
 }

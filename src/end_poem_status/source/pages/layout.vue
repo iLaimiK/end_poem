@@ -1,13 +1,10 @@
 <script lang="ts" setup>
 import AppMain from '../components/app-main.vue';
-import StatusHeader from '../components/status-header.vue';
 import TabNav from '../components/tab-nav.vue';
 </script>
 
 <template>
   <div class="app-wrapper">
-    <!-- header -->
-    <status-header />
     <!-- content -->
     <div class="main-container">
       <tab-nav />
