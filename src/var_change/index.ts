@@ -1,4 +1,5 @@
 import { INTERNAL_KEYS } from './config/constants';
+import { deduplicateAllArrayVariables } from './handlers/array-deduplication-handler';
 import {
   detectSecondaryCharacterChanges,
   handleCharacterUpdate,
@@ -90,12 +91,15 @@ function variableUpdateEnded(variables: Record<string, any>): void {
     PENDING_VALIDATIONS.length = 0;
   }
 
-  // 在变量更新结束时再次验证次要角色（确保最终一致性）
   if (variables?.stat_data) {
+    // 在变量更新结束时再次验证次要角色（确保最终一致性）
     validateSecondaryCharacters(variables.stat_data);
 
     // 剧情节点记录去重
     deduplicatePlotNodeRecords(variables.stat_data);
+
+    // 对所有数组变量进行去重
+    deduplicateAllArrayVariables(variables.stat_data);
 
     // 检测次要角色变化
     const currentSecondaryCharacters = _.get(variables.stat_data, '次要角色');
