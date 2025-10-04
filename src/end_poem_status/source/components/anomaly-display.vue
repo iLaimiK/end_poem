@@ -38,13 +38,6 @@ const props = defineProps<Props>();
         </div>
       </div>
     </template>
-
-    <div class="anomaly-footer">
-      <div class="anomaly-monitor">
-        <span class="anomaly-monitor-indicator"></span>
-        <span class="anomaly-monitor-text">实时监控中...</span>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -113,13 +106,6 @@ const props = defineProps<Props>();
   font-size: 0.8rem;
   color: var(--text-secondary);
   line-height: 1.4;
-}
-
-.anomaly-footer {
-  display: flex;
-  justify-content: center;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 107, 107, 0.1);
 }
 
 .anomaly-monitor {
