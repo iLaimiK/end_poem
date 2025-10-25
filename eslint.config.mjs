@@ -66,6 +66,7 @@ export default [
       'no-undef': 'off',
       'no-unused-vars': 'off',
       'no-var': 'error',
+      'pinia/require-setup-store-properties-export': 'off',
       'prefer-const': 'warn',
       'vue/multi-word-component-names': 'off',
       yoda: 'error',
@@ -74,13 +75,5 @@ export default [
     },
   },
   eslintConfigPrettier,
-  globalIgnores([
-    '@types/**',
-    '*.d.ts',
-    'dist/**',
-    'node_modules/**',
-    'eslint.config.mjs',
-    'postcss.config.js',
-    'webpack.config.ts',
-  ]),
+  globalIgnores(['dist/**', 'node_modules/**', 'eslint.config.mjs', 'postcss.config.js', 'webpack.config.ts']),
 ];
