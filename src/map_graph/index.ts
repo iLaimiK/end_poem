@@ -87,9 +87,9 @@ class MapGraphManager {
       // 挂载应用
       app.mount($mountPoint[0]);
 
-      // 处理scoped样式注入
+      // 处理样式注入到酒馆页面 <head>
       setTimeout(() => {
-        this.handleStyleInjection($mountPoint);
+        this.teleportStyle();
       }, 100);
 
       // 存储应用实例
@@ -104,29 +104,27 @@ class MapGraphManager {
   }
 
   /**
-   * 处理Vue scoped样式注入
+   * 将样式传送到酒馆页面的 <head> 中
    */
-  private handleStyleInjection($container: JQuery<HTMLElement>): void {
-    const scopeIds = new Set<string>();
+  private teleportStyle(): void {
+    // 避免重复注入
+    if ($(`head > div[script_id="${getScriptId()}"]`, window.parent.document).length) {
+      return;
+    }
 
-    // 查找组件的scoped属性
-    $container.find('div').each(function () {
-      const attributes = this.getAttributeNames();
-      attributes.forEach(attr => {
-        if (attr.startsWith('data-v-')) {
-          scopeIds.add(attr);
-        }
-      });
-    });
+    $(`<div>`)
+      .attr('script_id', getScriptId())
+      .append($(`head > style`, document).clone())
+      .appendTo($('head', window.parent.document));
 
-    // 注入对应的样式
-    scopeIds.forEach(scopeId => {
-      const $style = $(`head > style:contains("${scopeId}")`, document);
-      if ($style.length && !$container.find(`style[data-scope="${scopeId}"]`).length) {
-        const $clonedStyle = $style.clone().attr('data-scope', scopeId);
-        $container.append($clonedStyle);
-      }
-    });
+    console.log('[MapGraph] 样式已注入到酒馆页面 <head>');
+  }
+
+  /**
+   * 从酒馆页面移除样式
+   */
+  private deteleportStyle(): void {
+    $(`head > div[script_id="${getScriptId()}"]`, window.parent.document).remove();
   }
 
   /**
@@ -168,6 +166,7 @@ class MapGraphManager {
       this.cleanupMessage(messageId);
     });
     this.activeApps.clear();
+    this.deteleportStyle();
   }
 
   /**

@@ -540,12 +540,12 @@ const isSpecialCharacter = () => {
   &.theme-lily {
     background: linear-gradient(
       135deg,
-      rgba(255, 255, 255, 0.15) 0%,
-      rgba(240, 248, 255, 0.2) 30%,
-      rgba(255, 255, 255, 0.18) 70%,
-      rgba(248, 250, 252, 0.15) 100%
+      rgba(200, 210, 225, 0.08) 0%,
+      rgba(210, 220, 235, 0.12) 30%,
+      rgba(220, 230, 245, 0.1) 70%,
+      rgba(205, 215, 230, 0.08) 100%
     ) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border: 1px solid rgba(220, 230, 245, 0.25) !important;
     position: relative !important;
     overflow: hidden !important;
 
@@ -557,9 +557,9 @@ const isSpecialCharacter = () => {
       right: 0 !important;
       bottom: 0 !important;
       background:
-        radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 40%),
-        radial-gradient(circle at 70% 80%, rgba(240, 248, 255, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 60%) !important;
+        radial-gradient(circle at 30% 20%, rgba(220, 230, 245, 0.25) 0%, transparent 40%),
+        radial-gradient(circle at 70% 80%, rgba(210, 220, 235, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(230, 240, 250, 0.15) 0%, transparent 60%) !important;
       border-radius: 14px !important;
       z-index: 0 !important;
       clip-path: inset(0) !important;
@@ -567,11 +567,11 @@ const isSpecialCharacter = () => {
 
     &:hover {
       box-shadow:
-        0 0 25px rgba(255, 255, 255, 0.5),
-        0 0 35px rgba(240, 248, 255, 0.3),
+        0 0 25px rgba(220, 230, 245, 0.35),
+        0 0 35px rgba(210, 220, 235, 0.25),
         0 15px 25px rgba(0, 0, 0, 0.3) !important;
       transform: translateY(-2px) !important;
-      border-color: rgba(255, 255, 255, 0.5) !important;
+      border-color: rgba(230, 240, 250, 0.4) !important;
     }
 
     .character-card-header,
@@ -583,79 +583,79 @@ const isSpecialCharacter = () => {
 
     .character-card-header {
       .character-name {
-        color: rgba(255, 255, 255, 0.95) !important;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.6) !important;
+        color: rgba(230, 240, 255, 0.95) !important;
+        text-shadow: 0 0 10px rgba(220, 230, 245, 0.4) !important;
         font-weight: 300 !important;
         letter-spacing: 1px !important;
       }
 
       .role-tag.holy {
-        background: rgba(255, 255, 255, 0.2) !important;
-        color: rgba(255, 255, 255, 0.9) !important;
-        border-color: rgba(255, 255, 255, 0.4) !important;
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3) !important;
+        background: rgba(220, 230, 245, 0.12) !important;
+        color: rgba(230, 240, 255, 0.9) !important;
+        border-color: rgba(230, 240, 250, 0.3) !important;
+        text-shadow: 0 0 5px rgba(220, 230, 245, 0.25) !important;
       }
     }
 
     .character-quick-stats {
       .status-tag {
-        background: rgba(255, 255, 255, 0.15) !important;
-        color: rgba(255, 255, 255, 0.9) !important;
-        border-color: rgba(255, 255, 255, 0.3) !important;
+        background: rgba(220, 230, 245, 0.12) !important;
+        color: rgba(230, 240, 255, 0.9) !important;
+        border-color: rgba(230, 240, 250, 0.25) !important;
       }
 
       .progress-fill {
-        background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(240, 248, 255, 0.9)) !important;
+        background: linear-gradient(90deg, rgba(220, 230, 245, 0.7), rgba(230, 240, 250, 0.8)) !important;
       }
     }
 
     .stat-label,
     .appearance-label,
     .section-title {
-      color: rgba(255, 255, 255, 0.8) !important;
+      color: rgba(230, 240, 255, 0.85) !important;
     }
 
     .stat-value,
     .appearance-value {
-      color: rgba(255, 255, 255, 0.9) !important;
+      color: rgba(230, 240, 255, 0.95) !important;
     }
 
     .character-details {
       .item-slot,
       .ability-item {
-        background: rgba(255, 255, 255, 0.08) !important;
-        border-color: rgba(255, 255, 255, 0.2) !important;
+        background: rgba(220, 230, 245, 0.06) !important;
+        border-color: rgba(230, 240, 250, 0.15) !important;
       }
 
       .item-name,
       .ability-name {
-        color: rgba(255, 255, 255, 0.9) !important;
+        color: rgba(230, 240, 255, 0.9) !important;
       }
 
       .item-desc,
       .ability-desc {
-        color: rgba(255, 255, 255, 0.8) !important;
+        color: rgba(220, 230, 245, 0.85) !important;
       }
 
       .posture-description {
-        background: rgba(255, 255, 255, 0.08) !important;
-        border-color: rgba(255, 255, 255, 0.2) !important;
-        color: rgba(255, 255, 255, 0.8) !important;
+        background: rgba(220, 230, 245, 0.06) !important;
+        border-color: rgba(230, 240, 250, 0.15) !important;
+        color: rgba(220, 230, 245, 0.85) !important;
       }
 
       .appearance-item {
-        background: rgba(255, 255, 255, 0.08) !important;
-        border-color: rgba(255, 255, 255, 0.15) !important;
+        background: rgba(220, 230, 245, 0.06) !important;
+        border-color: rgba(230, 240, 250, 0.12) !important;
       }
     }
 
     .item-quantity {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(240, 248, 255, 0.9)) !important;
+      background: linear-gradient(135deg, rgba(220, 230, 245, 0.9), rgba(230, 240, 250, 0.85)) !important;
       color: rgba(40, 60, 100, 0.9) !important;
-      border: 1px solid rgba(255, 255, 255, 0.5) !important;
-      text-shadow: 0 0 4px rgba(255, 255, 255, 0.6) !important;
+      border: 1px solid rgba(230, 240, 250, 0.4) !important;
+      text-shadow: 0 0 4px rgba(220, 230, 245, 0.45) !important;
       box-shadow:
-        0 0 10px rgba(255, 255, 255, 0.5),
+        0 0 10px rgba(220, 230, 245, 0.4),
         0 2px 4px rgba(0, 0, 0, 0.2) !important;
     }
   }
@@ -664,12 +664,12 @@ const isSpecialCharacter = () => {
   &.theme-midori {
     background: linear-gradient(
       135deg,
-      rgba(255, 182, 193, 0.15) 0%,
-      rgba(221, 160, 221, 0.2) 30%,
-      rgba(230, 190, 230, 0.18) 70%,
-      rgba(240, 200, 240, 0.15) 100%
+      rgba(180, 130, 140, 0.1) 0%,
+      rgba(200, 140, 150, 0.12) 30%,
+      rgba(190, 135, 145, 0.11) 70%,
+      rgba(185, 132, 142, 0.1) 100%
     ) !important;
-    border: 1px solid rgba(221, 160, 221, 0.3) !important;
+    border: 1px solid rgba(200, 140, 160, 0.25) !important;
     position: relative !important;
     overflow: hidden !important;
 
@@ -681,9 +681,9 @@ const isSpecialCharacter = () => {
       right: 0 !important;
       bottom: 0 !important;
       background:
-        radial-gradient(ellipse at 25% 30%, rgba(255, 182, 193, 0.4) 0%, transparent 35%),
-        radial-gradient(ellipse at 75% 70%, rgba(221, 160, 221, 0.3) 0%, transparent 40%),
-        radial-gradient(circle at 50% 20%, rgba(230, 190, 230, 0.25) 0%, transparent 50%) !important;
+        radial-gradient(ellipse at 25% 30%, rgba(200, 140, 150, 0.25) 0%, transparent 35%),
+        radial-gradient(ellipse at 75% 70%, rgba(220, 150, 170, 0.2) 0%, transparent 40%),
+        radial-gradient(circle at 50% 20%, rgba(210, 145, 160, 0.15) 0%, transparent 50%) !important;
       border-radius: 14px !important;
       z-index: 0 !important;
       clip-path: inset(0) !important;
@@ -691,11 +691,11 @@ const isSpecialCharacter = () => {
 
     &:hover {
       box-shadow:
-        0 0 25px rgba(255, 182, 193, 0.4),
-        0 0 35px rgba(221, 160, 221, 0.3),
+        0 0 25px rgba(200, 140, 150, 0.3),
+        0 0 35px rgba(220, 150, 170, 0.25),
         0 15px 25px rgba(0, 0, 0, 0.3) !important;
       transform: translateY(-2px) !important;
-      border-color: rgba(230, 190, 230, 0.5) !important;
+      border-color: rgba(210, 145, 160, 0.4) !important;
     }
 
     .character-card-header,
@@ -707,79 +707,79 @@ const isSpecialCharacter = () => {
 
     .character-card-header {
       .character-name {
-        color: rgba(200, 160, 220, 0.95) !important;
-        text-shadow: 0 0 8px rgba(255, 182, 193, 0.5) !important;
+        color: rgba(230, 180, 200, 0.95) !important;
+        text-shadow: 0 0 8px rgba(220, 160, 180, 0.4) !important;
         font-weight: 300 !important;
         letter-spacing: 0.3px !important;
       }
 
       .role-tag.cursed {
-        background: rgba(221, 160, 221, 0.2) !important;
-        color: rgba(200, 160, 220, 0.9) !important;
-        border-color: rgba(230, 190, 230, 0.4) !important;
-        text-shadow: 0 0 3px rgba(255, 182, 193, 0.3) !important;
+        background: rgba(200, 140, 160, 0.15) !important;
+        color: rgba(230, 180, 200, 0.9) !important;
+        border-color: rgba(210, 150, 170, 0.35) !important;
+        text-shadow: 0 0 3px rgba(220, 160, 180, 0.3) !important;
       }
     }
 
     .character-quick-stats {
       .status-tag {
-        background: rgba(221, 160, 221, 0.15) !important;
-        color: rgba(200, 160, 220, 0.9) !important;
-        border-color: rgba(230, 190, 230, 0.3) !important;
+        background: rgba(200, 140, 160, 0.12) !important;
+        color: rgba(230, 180, 200, 0.9) !important;
+        border-color: rgba(210, 150, 170, 0.3) !important;
       }
 
       .progress-fill {
-        background: linear-gradient(90deg, rgba(221, 160, 221, 0.8), rgba(255, 182, 193, 0.7)) !important;
+        background: linear-gradient(90deg, rgba(200, 140, 160, 0.7), rgba(230, 160, 180, 0.6)) !important;
       }
     }
 
     .stat-label,
     .appearance-label,
     .section-title {
-      color: rgba(200, 160, 220, 0.8) !important;
+      color: rgba(230, 180, 200, 0.85) !important;
     }
 
     .stat-value,
     .appearance-value {
-      color: rgba(200, 160, 220, 0.9) !important;
+      color: rgba(230, 180, 200, 0.95) !important;
     }
 
     .character-details {
       .item-slot,
       .ability-item {
-        background: rgba(221, 160, 221, 0.08) !important;
-        border-color: rgba(200, 160, 220, 0.2) !important;
+        background: rgba(200, 140, 160, 0.08) !important;
+        border-color: rgba(210, 150, 170, 0.2) !important;
       }
 
       .item-name,
       .ability-name {
-        color: rgba(200, 160, 220, 0.9) !important;
+        color: rgba(230, 180, 200, 0.9) !important;
       }
 
       .item-desc,
       .ability-desc {
-        color: rgba(200, 160, 220, 0.8) !important;
+        color: rgba(220, 170, 190, 0.85) !important;
       }
 
       .posture-description {
-        background: rgba(221, 160, 221, 0.08) !important;
-        border-color: rgba(200, 160, 220, 0.2) !important;
-        color: rgba(200, 160, 220, 0.8) !important;
+        background: rgba(200, 140, 160, 0.08) !important;
+        border-color: rgba(210, 150, 170, 0.2) !important;
+        color: rgba(220, 170, 190, 0.85) !important;
       }
 
       .appearance-item {
-        background: rgba(221, 160, 221, 0.08) !important;
-        border-color: rgba(200, 160, 220, 0.15) !important;
+        background: rgba(200, 140, 160, 0.08) !important;
+        border-color: rgba(210, 150, 170, 0.15) !important;
       }
     }
 
     .item-quantity {
-      background: linear-gradient(135deg, rgba(221, 160, 221, 0.9), rgba(255, 182, 193, 0.8)) !important;
-      color: rgba(80, 40, 80, 0.9) !important;
-      border: 1px solid rgba(230, 190, 230, 0.4) !important;
-      text-shadow: 0 0 3px rgba(255, 182, 193, 0.4) !important;
+      background: linear-gradient(135deg, rgba(200, 140, 160, 0.9), rgba(230, 160, 180, 0.85)) !important;
+      color: rgba(60, 30, 40, 0.9) !important;
+      border: 1px solid rgba(210, 150, 170, 0.4) !important;
+      text-shadow: 0 0 3px rgba(220, 160, 180, 0.4) !important;
       box-shadow:
-        0 0 6px rgba(221, 160, 221, 0.4),
+        0 0 6px rgba(200, 140, 160, 0.35),
         0 2px 4px rgba(0, 0, 0, 0.2) !important;
     }
   }
@@ -788,12 +788,12 @@ const isSpecialCharacter = () => {
   &.theme-kohina {
     background: linear-gradient(
       135deg,
-      rgba(25, 50, 100, 0.75) 0%,
-      rgba(40, 70, 120, 0.8) 30%,
-      rgba(60, 30, 80, 0.75) 70%,
-      rgba(30, 40, 90, 0.75) 100%
+      rgba(25, 40, 75, 0.65) 0%,
+      rgba(30, 50, 85, 0.7) 30%,
+      rgba(40, 30, 65, 0.65) 70%,
+      rgba(28, 38, 75, 0.65) 100%
     ) !important;
-    border: 1px solid rgba(100, 150, 255, 0.3) !important;
+    border: 1px solid rgba(80, 120, 200, 0.28) !important;
     position: relative !important;
     overflow: hidden !important;
 
@@ -805,9 +805,9 @@ const isSpecialCharacter = () => {
       right: 0 !important;
       bottom: 0 !important;
       background:
-        radial-gradient(circle at 20% 30%, rgba(255, 100, 100, 0.3) 0%, transparent 30%),
-        radial-gradient(circle at 80% 70%, rgba(100, 150, 255, 0.4) 0%, transparent 40%),
-        radial-gradient(ellipse at 50% 50%, rgba(150, 100, 200, 0.2) 0%, transparent 60%) !important;
+        radial-gradient(circle at 20% 30%, rgba(200, 100, 120, 0.2) 0%, transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(80, 120, 200, 0.3) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 50%, rgba(120, 80, 160, 0.15) 0%, transparent 60%) !important;
       border-radius: 14px !important;
       z-index: 0 !important;
       clip-path: inset(0) !important;
@@ -815,11 +815,11 @@ const isSpecialCharacter = () => {
 
     &:hover {
       box-shadow:
-        0 0 25px rgba(100, 150, 255, 0.4),
-        0 0 35px rgba(255, 100, 100, 0.3),
+        0 0 25px rgba(80, 120, 200, 0.3),
+        0 0 35px rgba(200, 100, 120, 0.25),
         0 15px 25px rgba(0, 0, 0, 0.4) !important;
       transform: translateY(-2px) !important;
-      border-color: rgba(150, 100, 200, 0.5) !important;
+      border-color: rgba(120, 80, 160, 0.4) !important;
     }
 
     .character-card-header,
@@ -855,7 +855,7 @@ const isSpecialCharacter = () => {
       }
 
       .progress-fill {
-        background: linear-gradient(90deg, rgba(100, 150, 255, 0.8), rgba(255, 100, 100, 0.7)) !important;
+        background: linear-gradient(90deg, rgba(80, 120, 200, 0.7), rgba(200, 100, 120, 0.6)) !important;
       }
     }
 
@@ -873,8 +873,8 @@ const isSpecialCharacter = () => {
     .character-details {
       .item-slot,
       .ability-item {
-        background: rgba(100, 150, 255, 0.1) !important;
-        border-color: rgba(100, 150, 255, 0.3) !important;
+        background: rgba(80, 120, 200, 0.08) !important;
+        border-color: rgba(80, 120, 200, 0.25) !important;
       }
 
       .item-name,
@@ -888,24 +888,24 @@ const isSpecialCharacter = () => {
       }
 
       .posture-description {
-        background: rgba(100, 150, 255, 0.1) !important;
-        border-color: rgba(100, 150, 255, 0.3) !important;
+        background: rgba(80, 120, 200, 0.08) !important;
+        border-color: rgba(80, 120, 200, 0.25) !important;
         color: rgba(200, 220, 255, 0.8) !important;
       }
 
       .appearance-item {
-        background: rgba(100, 150, 255, 0.08) !important;
-        border-color: rgba(100, 150, 255, 0.15) !important;
+        background: rgba(80, 120, 200, 0.06) !important;
+        border-color: rgba(80, 120, 200, 0.12) !important;
       }
     }
 
     .item-quantity {
-      background: linear-gradient(135deg, rgba(100, 150, 255, 0.9), rgba(150, 100, 200, 0.8)) !important;
+      background: linear-gradient(135deg, rgba(80, 120, 200, 0.85), rgba(120, 80, 160, 0.75)) !important;
       color: rgba(20, 20, 40, 0.9) !important;
-      border: 1px solid rgba(150, 100, 200, 0.4) !important;
-      text-shadow: 0 0 3px rgba(100, 150, 255, 0.4) !important;
+      border: 1px solid rgba(120, 80, 160, 0.35) !important;
+      text-shadow: 0 0 3px rgba(80, 120, 200, 0.35) !important;
       box-shadow:
-        0 0 6px rgba(100, 150, 255, 0.4),
+        0 0 6px rgba(80, 120, 200, 0.35),
         0 2px 4px rgba(0, 0, 0, 0.2) !important;
     }
   }

@@ -75,51 +75,34 @@ class APlayerManager {
   }
 
   /**
-   * 处理样式注入 - 防抖优化
+   * 处理样式注入 - 注入到酒馆页面 <head>
    */
   private readonly handleStyleInjection = _.debounce(() => {
-    const scopeIds = this.findScopeIds();
-    this.injectStyles(scopeIds);
+    this.teleportStyle();
   }, 150);
 
   /**
-   * 查找 Vue 组件的 scoped 样式 ID
+   * 将样式传送到酒馆页面的 <head> 中
    */
-  private findScopeIds(): Set<string> {
-    const uniqueScopeIds = new Set<string>();
-
-    this.container?.find('div').each(function () {
-      const attributes = this.getAttributeNames();
-      attributes.forEach(attr => {
-        if (attr.startsWith('data-v-')) {
-          uniqueScopeIds.add(attr);
-        }
-      });
-    });
-
-    return uniqueScopeIds;
-  }
-
-  /**
-   * 注入 scoped 样式到播放器容器
-   */
-  private injectStyles(scopeIds: Set<string>): void {
-    if (scopeIds.size === 0) {
-      console.warn('[APlayer] 未找到任何组件的 scoped 样式属性。');
+  private teleportStyle(): void {
+    // 避免重复注入
+    if ($(`head > div[script_id="${getScriptId()}"]`, window.parent.document).length) {
       return;
     }
 
-    console.log(`[APlayer] 发现 ${scopeIds.size} 个组件样式:`, Array.from(scopeIds));
+    $(`<div>`)
+      .attr('script_id', getScriptId())
+      .append($(`head > style`, document).clone())
+      .appendTo($('head', window.parent.document));
 
-    scopeIds.forEach(scopeId => {
-      const styleElement = APlayerUtils.findStyleElement(scopeId);
-      if (styleElement.length) {
-        this.container!.append(styleElement);
-        console.log(`[APlayer] 成功注入样式: ${scopeId}`);
-      } else {
-        console.warn(`[APlayer] 未找到 ${scopeId} 对应的样式标签。`);
-      }
-    });
+    console.log('[APlayer] 样式已注入到酒馆页面 <head>');
+  }
+
+  /**
+   * 从酒馆页面移除样式
+   */
+  private deteleportStyle(): void {
+    $(`head > div[script_id="${getScriptId()}"]`, window.parent.document).remove();
   }
 
   /**
@@ -180,7 +163,7 @@ class APlayerManager {
     }
 
     this.piniaInstance = null;
-    $('head style[data-aplayer]').remove();
+    this.deteleportStyle();
     $(document).off('click.aplayerVue');
   }
 
@@ -246,13 +229,6 @@ class APlayerManager {
  * 工具函数集合
  */
 const APlayerUtils = {
-  /**
-   * 缓存样式查找结果
-   */
-  findStyleElement: _.memoize((scopeId: string) => {
-    return $(`head > style:contains("[${scopeId}]")`, document);
-  }),
-
   /**
    * 防抖设置保存
    */
