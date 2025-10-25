@@ -1,0 +1,10 @@
+.github/workflows
+@types
+dist
+README.md
+初始模板
+src
+.kilocode
+.codex
+.clinerules
+.augment

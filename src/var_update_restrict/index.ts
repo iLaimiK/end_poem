@@ -142,7 +142,7 @@ function filterComplexSetCommands(text: string): string {
   }
 }
 
-// ==================== Event Listeners ====================
+// Event Listeners
 
 /**
  * Initialize event listeners
@@ -200,7 +200,7 @@ function initializeEventListeners(): void {
   debugLog('Event listeners initialization completed');
 }
 
-// ==================== Main Entry Point ====================
+// Main Entry Point
 
 /**
  * Script main entry point
