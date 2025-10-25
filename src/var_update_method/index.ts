@@ -91,10 +91,11 @@ async function switchWorldbookEntriesByUpdateMethod(): Promise<void> {
         entriesToEnable = [updateMethodConfig.aiOutputEntry];
         entriesToDisable = updateMethodConfig.extraModelParseEntries;
         break;
-      default:
-        // @ts-expect-error TypeScript 会确保这里不可达（因为 updateMethod 只能是两个值之一）
-        { const _exhaustiveCheck: never = updateMethod;
-        return; }
+      default: // @ts-expect-error TypeScript 会确保这里不可达（因为 updateMethod 只能是两个值之一）
+      {
+        const _exhaustiveCheck: never = updateMethod;
+        return;
+      }
     }
 
     console.log('[MVU 更新方式切换] 准备更新条目状态', {
