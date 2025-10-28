@@ -11,5 +11,8 @@ pnpm-debug.log*
 
 auto-imports.d.ts
 components.d.ts
+<<<<<<< HEAD
 
 初始模板
+=======
+>>>>>>> 67c5de0b4c909d1c4a2e1c1fda91f84c6cd76b42
