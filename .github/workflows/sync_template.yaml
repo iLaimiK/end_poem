@@ -27,12 +27,13 @@ jobs:
       - name: Copy template files (respecting .templatesyncignore)
         run: |
           if [ -f .github/.templatesyncignore ]; then
-            rsync -av --exclude-from=.github/.templatesyncignore \
-              /tmp/template/ ./ \
+            rsync -av --delete \
+              --exclude-from=.github/.templatesyncignore \
               --exclude='.git' \
-              --exclude='.github/.templatesyncignore'
+              --exclude='.github/.templatesyncignore' \
+              /tmp/template/ ./
           else
-            rsync -av /tmp/template/ ./ --exclude='.git'
+            rsync -av --delete --exclude='.git' /tmp/template/ ./
           fi
 
       - name: Check for changes
