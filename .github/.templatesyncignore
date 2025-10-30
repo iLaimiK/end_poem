@@ -1,10 +1,14 @@
 .github/workflows
+.github/*
+.gitignore
 @types
 dist
 README.md
 初始模板
-src
+src/*
 .kilocode
 .codex
 .clinerules
 .augment/*
+GEMINI.md
+.vscode/settings.json
