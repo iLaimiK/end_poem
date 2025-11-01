@@ -253,7 +253,7 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
             entry.html === undefined
               ? <any[]>[
                   {
-                    test: /\.vue\.s[ac]ss$/,
+                    test: /\.vue\.s(a|c)ss$/,
                     use: [
                       { loader: 'vue-style-loader', options: { ssrId: true } },
                       { loader: 'css-loader', options: { url: false } },
