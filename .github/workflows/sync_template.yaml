@@ -14,7 +14,7 @@ jobs:
     if: github.repository != 'StageDog/tavern_helper_template'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout current repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
@@ -27,13 +27,13 @@ jobs:
       - name: Copy template files (respecting .templatesyncignore)
         run: |
           if [ -f .github/.templatesyncignore ]; then
-            rsync -av --delete \
+            rsync -av \
               --exclude-from=.github/.templatesyncignore \
               --exclude='.git' \
               --exclude='.github/.templatesyncignore' \
               /tmp/template/ ./
           else
-            rsync -av --delete --exclude='.git' /tmp/template/ ./
+            rsync -av --exclude='.git' /tmp/template/ ./
           fi
 
       - name: Check for changes
@@ -50,8 +50,8 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "[bot] 同步模板仓库的更新"
-          title: "[bot] 同步模板仓库的更新"
+          commit-message: '[bot] 同步模板仓库的更新'
+          title: '[bot] 同步模板仓库的更新'
           body: |
             此 PR 由自动化工作流创建，同步模板仓库的最新更改。
 
