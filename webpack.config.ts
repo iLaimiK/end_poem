@@ -51,7 +51,11 @@ function common_path(lhs: string, rhs: string) {
 
 function glob_script_files() {
   const files: string[] = fs
+<<<<<<< HEAD
     .globSync(`src/**/index.{ts,js}`)
+=======
+    .globSync(`src/**/index.{ts,tsx,js,jsx}`)
+>>>>>>> 70f76763bf938d1a765f8f40172cd68d06c75fca
     .filter(file => process.env.CI !== 'true' || !fs.readFileSync(path.join(__dirname, file)).includes('@no-ci'));
 
   const results: string[] = [];
@@ -444,6 +448,12 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
       if (argv.mode !== 'production' && ['vue', 'pixi'].some(key => request.includes(key))) {
         return callback();
       }
+<<<<<<< HEAD
+=======
+      if (['react'].some(key => request.includes(key))) {
+        return callback();
+      }
+>>>>>>> 70f76763bf938d1a765f8f40172cd68d06c75fca
       const global = {
         jquery: '$',
         lodash: '_',
