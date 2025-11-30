@@ -15,8 +15,6 @@ const visibleCharacters = computed<Character[]>(() => {
 
   // 主要角色包括：动态获取的用户名、白、澪以及队伍中的特殊角色
   const mainCharacterNames = [appState.userName.value, '白', '澪'];
-  // 需要入队才可见的特殊角色
-  const teamOnlyCharacters = ['Lily', '布施翠', '蛭子小比奈'];
 
   const result: Character[] = [];
 
@@ -31,17 +29,14 @@ const visibleCharacters = computed<Character[]>(() => {
       });
     });
 
-  // 添加已入队的特殊角色
-  teamOnlyCharacters.forEach(characterName => {
-    if (appState.isSpecialCharacterInTeam(characterName)) {
-      const specialCharData = specialCharacters[characterName];
-      if (specialCharData) {
-        result.push({
-          name: characterName,
-          ...specialCharData,
-          visible: true,
-        });
-      }
+  // 添加已入队的特殊角色（根据角色数据中的 inTeam 字段判断）
+  Object.entries(specialCharacters).forEach(([name, data]) => {
+    if (data.inTeam === true) {
+      result.push({
+        name,
+        ...data,
+        visible: true,
+      });
     }
   });
 

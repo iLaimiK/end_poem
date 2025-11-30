@@ -365,17 +365,24 @@ export const Schema = z.object({
         能力: z.record(z.string(), z.string()).prefault({}),
       }),
     )
-    .superRefine((obj, ctx) => {
-      // 遍历所有 key
-      Object.keys(obj).forEach(key => {
-        if (!SecondaryCharEnum.safeParse(key).success) {
-          ctx.addIssue({
-            code: 'custom',
-            message: `不允许次要角色名称：${key}`,
-            path: [key],
-          });
+    .transform(obj => {
+      // 过滤掉不允许的次要角色
+      const filtered: Record<string, any> = {};
+      const removedCharacters: string[] = [];
+
+      for (const key in obj) {
+        if (SecondaryCharEnum.safeParse(key).success) {
+          filtered[key] = obj[key];
+        } else {
+          removedCharacters.push(key);
         }
-      });
+      }
+
+      if (removedCharacters.length > 0) {
+        console.log(`[次要角色限制] 检测到不允许的角色，已移除: ${removedCharacters.join(', ')}`);
+      }
+
+      return filtered;
     })
     .prefault({}),
   次要角色记录: z.record(z.string(), z.any()).prefault({}),

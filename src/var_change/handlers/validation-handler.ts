@@ -1,6 +1,5 @@
 import { CHANGE_LIMITS } from '../config/change-limits';
-import { VALUE_CONSTRAINTS } from '../config/value-constraints';
-import type { ChangeLimitConfig, NumberConstraintFunction } from '../types/index';
+import type { ChangeLimitConfig } from '../types/index';
 
 /**
  * 获取变化限制配置
@@ -29,39 +28,6 @@ export function getChangeLimitForPath(path: string): ChangeLimitConfig | null {
       return CHANGE_LIMITS.pattern_污秽侵蚀度;
     } else if (path.endsWith('.模因侵蚀率')) {
       return CHANGE_LIMITS.pattern_模因侵蚀率;
-    }
-  }
-
-  return null;
-}
-
-/**
- * 获取对应的约束函数
- * @param path - 变量路径
- * @returns 对应的约束函数
- */
-export function getConstraintForPath(path: string): NumberConstraintFunction | null {
-  // 直接匹配
-  if (VALUE_CONSTRAINTS[path]) {
-    return VALUE_CONSTRAINTS[path];
-  }
-
-  // 模式匹配
-  if (path.includes('次要角色') && path.endsWith('.信任值')) {
-    return VALUE_CONSTRAINTS.pattern_信任值;
-  }
-
-  if (path.includes('特殊角色')) {
-    if (path.endsWith('.好感度')) {
-      return VALUE_CONSTRAINTS.pattern_好感度;
-    } else if (path.endsWith('.依赖度')) {
-      return VALUE_CONSTRAINTS.pattern_依赖度;
-    } else if (path.endsWith('.认可度')) {
-      return VALUE_CONSTRAINTS.pattern_认可度;
-    } else if (path.endsWith('.污秽侵蚀度')) {
-      return VALUE_CONSTRAINTS.pattern_污秽侵蚀度;
-    } else if (path.endsWith('.模因侵蚀率')) {
-      return VALUE_CONSTRAINTS.pattern_模因侵蚀率;
     }
   }
 
@@ -111,41 +77,24 @@ export function applyChangeLimit(
 }
 
 /**
- * 验证和修复数值
- * @param value - 要验证的值
+ * 应用变化幅度限制到数值
+ * @param value - 当前值
  * @param path - 变量路径
  * @param oldValue - 旧值
- * @returns 修复后的值
+ * @returns 应用变化幅度限制后的值
  */
-export function validateAndFixValue(value: any, path: string, oldValue: any = null): any {
-  const constraint = getConstraintForPath(path);
-  const changeLimit = getChangeLimitForPath(path);
-
-  if (!constraint) {
+export function applyChangeLimitToValue(value: any, path: string, oldValue: any): any {
+  // 只处理数值类型
+  if (typeof value !== 'number' || typeof oldValue !== 'number') {
     return value;
   }
 
-  try {
-    // 基本的类型转换和范围限制
-    let result = constraint(value);
-
-    // 应用变化幅度限制
-    if (changeLimit && oldValue !== null && typeof oldValue === 'number') {
-      result = applyChangeLimit(result, oldValue, changeLimit, path);
-
-      // 确保限制后的值仍在约束范围内
-      result = constraint(result);
-    }
-
-    // 记录修复日志（如果值有变化）
-    if (result !== value) {
-      const fixType = typeof value !== 'number' ? '类型转换' : '范围限制';
-      console.log(`数值修复: ${path} 从 ${value} ${fixType}为 ${result}`);
-    }
-
-    return result;
-  } catch (error) {
-    console.error(`数值验证失败: ${path} = ${value}`, error instanceof Error ? error.message : String(error));
-    return value; // 验证失败时保留原值
+  const changeLimit = getChangeLimitForPath(path);
+  if (!changeLimit) {
+    return value;
   }
+
+  const limitedValue = applyChangeLimit(value, oldValue, changeLimit, path);
+
+  return limitedValue;
 }

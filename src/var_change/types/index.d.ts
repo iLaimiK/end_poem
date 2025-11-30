@@ -3,11 +3,6 @@
  */
 
 /**
- * 数值约束函数类型
- */
-export type NumberConstraintFunction = (value: any) => number;
-
-/**
  * 变化限制配置
  */
 export interface ChangeLimitConfig {
@@ -22,13 +17,6 @@ export interface ChangeLimitConfig {
  */
 export interface ChangeLimitsConfig {
   [key: string]: ChangeLimitConfig;
-}
-
-/**
- * 数值约束配置集合
- */
-export interface ValueConstraintsConfig {
-  [key: string]: NumberConstraintFunction;
 }
 
 /**

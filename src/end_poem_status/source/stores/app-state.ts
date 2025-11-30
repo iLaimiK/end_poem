@@ -28,7 +28,7 @@ export class AppStateManager {
 
   public charactersData = ref<CharacterData>({});
   public specialCharacterData = ref<SpecialCharacterData>({});
-  public joinedTeamData = ref<Record<string, 0 | 1>>({});
+  public joinedTeamData = ref<Record<string, boolean>>({});
   public sideCharactersData = ref<SideCharacterData>({});
   public isInitialized = ref(false);
   public errorCount = ref(0);
@@ -155,7 +155,8 @@ export class AppStateManager {
    * 检查特殊角色是否已加入队伍
    */
   isSpecialCharacterInTeam(characterName: string): boolean {
-    return this.joinedTeamData.value[characterName] === 1;
+    const character = this.specialCharacterData.value[characterName];
+    return character?.inTeam === true;
   }
 
   /**

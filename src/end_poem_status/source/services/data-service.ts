@@ -125,16 +125,25 @@ export class DataService {
   getSpecialCharacterData(): SpecialCharacterData {
     const statData = this.getStatData();
     const rawData = _.get(statData, '特殊角色', {});
-    const pureCharacterData = _.omit(rawData, '已加入队伍') as SpecialCharacterData;
-    return DataProcessor.transformCharacterObject(pureCharacterData);
+    return DataProcessor.transformCharacterObject(rawData);
   }
 
   /**
    * 获取已入队的特殊角色状态
    */
-  getJoinedTeamData(): Record<string, 0 | 1> {
+  getJoinedTeamData(): Record<string, boolean> {
     const statData = this.getStatData();
-    return _.get(statData, '特殊角色.已加入队伍', {});
+    const rawData = _.get(statData, '特殊角色', {});
+    const result: Record<string, boolean> = {};
+
+    // 从每个特殊角色对象中提取"已在队伍"字段
+    Object.entries(rawData).forEach(([name, data]: [string, any]) => {
+      if (data && typeof data === 'object' && '已在队伍' in data) {
+        result[name] = data.已在队伍 === true;
+      }
+    });
+
+    return result;
   }
 
   /**
@@ -252,6 +261,7 @@ export class DataProcessor {
         posture: char.姿态动作,
         souls: char.可用灵魂,
         visible: char.visible,
+        inTeam: char.已在队伍,
       };
 
       // 如果是“白”，则应用特殊处理

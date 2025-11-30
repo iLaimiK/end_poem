@@ -1,41 +1,5 @@
 import type { CharacterRecord } from '../types/index';
-import {
-  getCurrentTimeAndLocation,
-  getStandardizedRecordName,
-  isAllowedSecondaryCharacter,
-} from '../utils/character-utils';
-
-/**
- * 检查并清理不允许的次要角色
- * @param stat_data - stat_data对象
- */
-export function validateSecondaryCharacters(stat_data: Record<string, any>): void {
-  if (!_.has(stat_data, '次要角色')) {
-    return;
-  }
-
-  const secondaryCharacters = _.get(stat_data, '次要角色');
-  if (!_.isObject(secondaryCharacters) || Array.isArray(secondaryCharacters)) {
-    return;
-  }
-
-  const charactersToRemove: string[] = [];
-
-  // 检查所有次要角色
-  for (const characterName in secondaryCharacters) {
-    if (!isAllowedSecondaryCharacter(characterName)) {
-      charactersToRemove.push(characterName);
-    }
-  }
-
-  // 移除不允许的角色
-  if (charactersToRemove.length > 0) {
-    console.log(`[次要角色限制] 检测到不允许的角色，正在移除: ${charactersToRemove.join(', ')}`);
-    for (const characterName of charactersToRemove) {
-      _.unset(stat_data, `次要角色.${characterName}`);
-    }
-  }
-}
+import { getCurrentTimeAndLocation, getStandardizedRecordName } from '../utils/character-utils';
 
 /**
  * 处理次要角色出场
@@ -190,18 +154,5 @@ export function detectSecondaryCharacterChanges(
   for (const characterName of removedCharacters) {
     const characterData = oldSecondaryCharacters[characterName];
     handleSecondaryCharacterExit(stat_data, characterName, characterData);
-  }
-}
-
-/**
- * 处理次要角色相关的变更
- * @param stat_data - stat_data对象
- * @param path - 变量路径
- * @param newValue - 新值
- */
-export function handleCharacterUpdate(stat_data: Record<string, any>, path: string, newValue: any): void {
-  if (path === '次要角色') {
-    // 在次要角色对象被更新后，检查并清理不允许的角色
-    validateSecondaryCharacters(stat_data);
   }
 }

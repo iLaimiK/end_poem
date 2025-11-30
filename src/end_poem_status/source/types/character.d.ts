@@ -34,6 +34,7 @@ export interface Character {
     }
   >;
   visible?: boolean;
+  inTeam?: boolean;
 }
 
 // 次要角色接口

@@ -37,7 +37,7 @@ export interface StatData {
   全局信息: GlobalInfo;
   plot_record: PlotRecord;
   主要角色: CharacterData;
-  特殊角色: SpecialCharacterData & { 已加入队伍?: Record<string, 0 | 1> };
+  特殊角色: SpecialCharacterData;
   次要角色: SideCharacterData;
 }
 
