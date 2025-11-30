@@ -1,4 +1,3 @@
-// @ts-expect-error 从CDN导入
 import { registerMvuSchema } from 'https://testingcf.jsdelivr.net/gh/StageDog/tavern_resource/dist/util/mvu_zod.js';
 
 /**
