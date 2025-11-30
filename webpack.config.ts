@@ -1,6 +1,9 @@
+import { FSWatcher, watch } from 'chokidar';
 import HtmlInlineScriptWebpackPlugin from 'html-inline-script-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import _ from 'lodash';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { exec } from 'node:child_process';
 import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
@@ -15,6 +18,7 @@ import unpluginVueComponents from 'unplugin-vue-components/webpack';
 import { VueLoaderPlugin } from 'vue-loader';
 import webpack from 'webpack';
 import WebpackObfuscator from 'webpack-obfuscator';
+
 const require = createRequire(import.meta.url);
 const HTMLInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin').default;
 
@@ -98,6 +102,25 @@ function watch_it(compiler: webpack.Compiler) {
     compiler.hooks.done.tap('updater', () => {
       console.info('\n[Listener] 检测到完成编译, 推送更新事件...');
       io.emit('iframe_updated');
+    });
+  }
+}
+
+let watcher: FSWatcher;
+function dump_schema(compiler: webpack.Compiler) {
+  const execute = () => {
+    exec('pnpm dump', { cwd: import.meta.dirname });
+  };
+  const execute_debounced = _.debounce(execute, 500, { leading: true, trailing: false });
+  if (!compiler.options.watch) {
+    execute();
+  } else if (!watcher) {
+    watcher = watch('src', {
+      awaitWriteFinish: true,
+    }).on('all', (_event, path) => {
+      if (path.endsWith('schema.ts')) {
+        execute_debounced();
+      }
     });
   }
 }
@@ -342,6 +365,7 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
     )
       .concat(
         { apply: watch_it },
+        { apply: dump_schema },
         new VueLoaderPlugin(),
         unpluginAutoImport({
           dts: true,

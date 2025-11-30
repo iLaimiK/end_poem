@@ -5,7 +5,8 @@
     "watch": "webpack --mode development --watch --progress",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss,html,vue}\"",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "dump": "tsx dump_schema.ts"
   },
   "browserslist": [
     "defaults and partially supports es6-module"
@@ -21,6 +22,7 @@
     "@types/webpack": "^5.28.5",
     "@typescript-eslint/parser": "^8.48.0",
     "autoprefixer": "^10.4.22",
+    "chokidar": "^5.0.0",
     "css-loader": "^7.1.2",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
@@ -58,6 +60,7 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths-webpack-plugin": "^4.2.0",
     "tslib": "^2.8.1",
+    "tsx": "^4.20.6",
     "type-fest": "^5.2.0",
     "typescript": "6.0.0-dev.20250807",
     "typescript-eslint": "^8.48.0",
