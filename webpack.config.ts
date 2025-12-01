@@ -1,11 +1,11 @@
 import { FSWatcher, watch } from 'chokidar';
+import HTMLInlineCSSWebpackPluginModule from 'html-inline-css-webpack-plugin';
 import HtmlInlineScriptWebpackPlugin from 'html-inline-script-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import _ from 'lodash';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { exec } from 'node:child_process';
 import fs from 'node:fs';
-import { createRequire } from 'node:module';
 import path from 'node:path';
 import url from 'node:url';
 import RemarkHTML from 'remark-html';
@@ -19,8 +19,8 @@ import { VueLoaderPlugin } from 'vue-loader';
 import webpack from 'webpack';
 import WebpackObfuscator from 'webpack-obfuscator';
 
-const require = createRequire(import.meta.url);
-const HTMLInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin').default;
+const HTMLInlineCSSWebpackPlugin =
+  (HTMLInlineCSSWebpackPluginModule as any).default || HTMLInlineCSSWebpackPluginModule;
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
