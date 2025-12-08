@@ -20,6 +20,9 @@ fs.globSync('src/**/schema.ts').forEach(async schema_file => {
 
     if (_.has(module, 'Schema')) {
       const schema = _.get(module, 'Schema');
+      if (_.isFunction(schema)) {
+        schema = schema();
+      }
       const jsonSchema = z.toJSONSchema(schema, { io: 'input', reused: 'ref' });
       fs.writeFileSync(path.join(path.dirname(schema_file), 'schema.json'), JSON.stringify(jsonSchema, null, 2));
     }
