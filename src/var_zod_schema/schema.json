@@ -111,56 +111,31 @@
               "type": "string"
             },
             "持有物品": {
-              "allOf": [
-                {
+              "default": {},
+              "type": "object",
+              "properties": {
+                "黑白配色的蕾丝阳伞": {
+                  "default": {},
                   "type": "object",
                   "properties": {
-                    "黑白配色的蕾丝阳伞": {
-                      "default": {},
-                      "type": "object",
-                      "properties": {
-                        "desc": {
-                          "default": "白随身携带的阳伞，几乎从不离手。伞面洁净，不染尘埃",
-                          "type": "string"
-                        },
-                        "type": {
-                          "default": "神之造物",
-                          "type": "string"
-                        },
-                        "quantity": {
-                          "default": 1,
-                          "type": "number"
-                        }
-                      }
+                    "desc": {
+                      "default": "白随身携带的阳伞，几乎从不离手。伞面洁净，不染尘埃",
+                      "type": "string"
+                    },
+                    "type": {
+                      "default": "神之造物",
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "default": 1,
+                      "type": "number"
                     }
                   }
-                },
-                {
-                  "type": "object",
-                  "propertyNames": {
-                    "type": "string"
-                  },
-                  "additionalProperties": {
-                    "type": "object",
-                    "properties": {
-                      "desc": {
-                        "type": "string"
-                      },
-                      "type": {
-                        "type": "string"
-                      },
-                      "quantity": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "desc",
-                      "type",
-                      "quantity"
-                    ]
-                  }
                 }
-              ]
+              },
+              "additionalProperties": {
+                "$ref": "#/$defs/__schema0"
+              }
             },
             "能力": {
               "default": [
@@ -173,8 +148,7 @@
           },
           "required": [
             "外观",
-            "姿态动作",
-            "持有物品"
+            "姿态动作"
           ]
         },
         "澪": {
@@ -243,101 +217,65 @@
               "type": "string"
             },
             "持有物品": {
-              "allOf": [
-                {
+              "default": {},
+              "type": "object",
+              "properties": {
+                "星星吊坠": {
+                  "default": {},
                   "type": "object",
                   "properties": {
-                    "星星吊坠": {
-                      "default": {},
-                      "type": "object",
-                      "properties": {
-                        "desc": {
-                          "default": "用黑色皮绳穿起来的、朴实无华的金属星星状吊坠，吊坠表面布满划痕，但被澪摩挲得十分光滑",
-                          "type": "string"
-                        },
-                        "type": {
-                          "default": "纪念品",
-                          "type": "string"
-                        },
-                        "quantity": {
-                          "default": 1,
-                          "type": "number"
-                        }
-                      }
+                    "desc": {
+                      "default": "用黑色皮绳穿起来的、朴实无华的金属星星状吊坠，吊坠表面布满划痕，但被澪摩挲得十分光滑",
+                      "type": "string"
+                    },
+                    "type": {
+                      "default": "纪念品",
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "default": 1,
+                      "type": "number"
                     }
                   }
-                },
-                {
-                  "type": "object",
-                  "propertyNames": {
-                    "type": "string"
-                  },
-                  "additionalProperties": {
-                    "type": "object",
-                    "properties": {
-                      "desc": {
-                        "type": "string"
-                      },
-                      "type": {
-                        "type": "string"
-                      },
-                      "quantity": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "desc",
-                      "type",
-                      "quantity"
-                    ]
-                  }
                 }
-              ]
+              },
+              "additionalProperties": {
+                "$ref": "#/$defs/__schema0"
+              }
             },
             "能力": {
-              "allOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "法则解析": {
-                      "default": "通过纯粹的智力运算和精灵血统带来的超凡感知，对失序区的'强加法则'进行逻辑层面上的精密解读和破译",
-                      "type": "string"
-                    },
-                    "法则预判": {
-                      "default": "在完全解析一条法则后，能够预判出该法则在特定条件刺激下可能发生的连锁反应或次级变异",
-                      "type": "string"
-                    },
-                    "锚点感应": {
-                      "default": "对'现实锚点'发出的稳定波动有微弱的感知能力，能在一定范围内大致判断出稳定区的方向",
-                      "type": "string"
-                    },
-                    "能量亲和": {
-                      "default": "精灵血统使她对以太能量有微弱的调动能力，虽不足以施展传统魔法，但可以用来激活某些前文明的魔法造物或遗物",
-                      "type": "string"
-                    },
-                    "记忆宫殿": {
-                      "default": "澪的头脑是一个井然有序的、巨大的图书馆。她能将所有亲身经历和习得的知识，以绝对精准、永不磨损的形式储存在记忆中，并随时进行高速检索和交叉引用",
-                      "type": "string"
-                    }
-                  }
+              "default": {},
+              "type": "object",
+              "properties": {
+                "法则解析": {
+                  "default": "通过纯粹的智力运算和精灵血统带来的超凡感知，对失序区的'强加法则'进行逻辑层面上的精密解读和破译",
+                  "type": "string"
                 },
-                {
-                  "type": "object",
-                  "propertyNames": {
-                    "type": "string"
-                  },
-                  "additionalProperties": {
-                    "type": "string"
-                  }
+                "法则预判": {
+                  "default": "在完全解析一条法则后，能够预判出该法则在特定条件刺激下可能发生的连锁反应或次级变异",
+                  "type": "string"
+                },
+                "锚点感应": {
+                  "default": "对'现实锚点'发出的稳定波动有微弱的感知能力，能在一定范围内大致判断出稳定区的方向",
+                  "type": "string"
+                },
+                "能量亲和": {
+                  "default": "精灵血统使她对以太能量有微弱的调动能力，虽不足以施展传统魔法，但可以用来激活某些前文明的魔法造物或遗物",
+                  "type": "string"
+                },
+                "记忆宫殿": {
+                  "default": "澪的头脑是一个井然有序的、巨大的图书馆。她能将所有亲身经历和习得的知识，以绝对精准、永不磨损的形式储存在记忆中，并随时进行高速检索和交叉引用",
+                  "type": "string"
                 }
-              ]
+              },
+              "additionalProperties": {
+                "type": "string"
+              }
             }
           },
           "required": [
             "外观",
-            "姿态动作",
-            "持有物品",
-            "能力"
+            "姿态动作"
           ]
         }
       },
@@ -442,23 +380,7 @@
               }
             },
             "additionalProperties": {
-              "type": "object",
-              "properties": {
-                "desc": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string"
-                },
-                "quantity": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "desc",
-                "type",
-                "quantity"
-              ]
+              "$ref": "#/$defs/__schema0"
             }
           },
           "能力": {
@@ -555,23 +477,7 @@
               "type": "object",
               "properties": {},
               "additionalProperties": {
-                "type": "object",
-                "properties": {
-                  "desc": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string"
-                  },
-                  "quantity": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "desc",
-                  "type",
-                  "quantity"
-                ]
+                "$ref": "#/$defs/__schema0"
               }
             },
             "能力": {
@@ -744,23 +650,7 @@
                 }
               },
               "additionalProperties": {
-                "type": "object",
-                "properties": {
-                  "desc": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string"
-                  },
-                  "quantity": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "desc",
-                  "type",
-                  "quantity"
-                ]
+                "$ref": "#/$defs/__schema0"
               }
             },
             "能力": {
@@ -885,23 +775,7 @@
                 }
               },
               "additionalProperties": {
-                "type": "object",
-                "properties": {
-                  "desc": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string"
-                  },
-                  "quantity": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "desc",
-                  "type",
-                  "quantity"
-                ]
+                "$ref": "#/$defs/__schema0"
               }
             },
             "能力": {
@@ -967,23 +841,7 @@
               "type": "string"
             },
             "additionalProperties": {
-              "type": "object",
-              "properties": {
-                "desc": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string"
-                },
-                "quantity": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "desc",
-                "type",
-                "quantity"
-              ]
+              "$ref": "#/$defs/__schema0"
             }
           },
           "能力": {
@@ -1023,5 +881,26 @@
     "plot_record",
     "主要角色",
     "特殊角色"
-  ]
+  ],
+  "$defs": {
+    "__schema0": {
+      "type": "object",
+      "properties": {
+        "desc": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "quantity": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "desc",
+        "type",
+        "quantity"
+      ]
+    }
+  }
 }
