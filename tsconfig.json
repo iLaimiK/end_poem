@@ -25,5 +25,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": ["@types", "src", "*.d.ts"],
-  "exclude": ["**/dist/**", "**/node_modules/**", "@types/iframe/exported.mvu.d.ts"]
+  "exclude": ["**/dist/**", "**/node_modules/**"]
 }
