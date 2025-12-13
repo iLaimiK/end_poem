@@ -36,7 +36,7 @@ export const Schema = z.object({
   }),
 
   plot_record: z.object({
-    剧情进度: z.string().prefault('v1'),
+    剧情进度: z.templateLiteral(['v', z.coerce.number()]),
     剧情节点记录: uniqueStrArray(),
   }),
 
@@ -250,7 +250,13 @@ export const Schema = z.object({
       姿态动作: z.string(),
       持有物品: z
         .object({
-          錵制小太刀: lockedItem("由超硬金属'錵'打造的小太刀，刀刃锋利无比，是小比奈最主要的武器", '重要的武器', 2),
+          錵制小太刀: z
+            .object({
+              desc: lockedStr("由超硬金属'錵'打造的小太刀，刀刃锋利无比，是小比奈最主要的武器"),
+              type: z.string().prefault('重要的武器'),
+              quantity: z.coerce.number().prefault(2),
+            })
+            .prefault({}),
         })
         .catchall(itemSchema)
         .prefault({}),

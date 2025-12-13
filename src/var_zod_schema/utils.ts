@@ -34,21 +34,21 @@ export const itemSchema = z.object({
 });
 
 /**
+ * 锁定字符串 schema（值不可变）
+ */
+export const lockedStr = (value: string) => z.string().prefault(value).transform(locked(value));
+
+/**
  * 锁定物品 schema（值不可变，无论输入什么都返回默认值）
  */
 export const lockedItem = (defaultDesc: string, defaultType: string, defaultQuantity = 1) =>
   z
     .object({
-      desc: z.string().prefault(defaultDesc).transform(locked(defaultDesc)),
-      type: z.string().prefault(defaultType).transform(locked(defaultType)),
+      desc: lockedStr(defaultDesc),
+      type: lockedStr(defaultType),
       quantity: z.coerce.number().prefault(defaultQuantity).transform(locked(defaultQuantity)),
     })
     .prefault({});
-
-/**
- * 锁定字符串 schema（值不可变）
- */
-export const lockedStr = (value: string) => z.string().prefault(value).transform(locked(value));
 
 /**
  * 外观记录 schema

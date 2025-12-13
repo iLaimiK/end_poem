@@ -41,8 +41,8 @@
       "type": "object",
       "properties": {
         "剧情进度": {
-          "default": "v1",
-          "type": "string"
+          "type": "string",
+          "pattern": "^v-?\\d+(?:\\.\\d+)?$"
         },
         "剧情节点记录": {
           "default": [],
@@ -51,7 +51,10 @@
             "type": "string"
           }
         }
-      }
+      },
+      "required": [
+        "剧情进度"
+      ]
     },
     "主要角色": {
       "type": "object",
