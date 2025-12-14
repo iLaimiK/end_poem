@@ -33,6 +33,48 @@ export const itemSchema = z.object({
   quantity: z.coerce.number(),
 });
 
+/** 物品对象类型 */
+export type ItemSchema = z.infer<typeof itemSchema>;
+
+/**
+ * 带默认值恢复的数量 schema
+ * 当 quantity 为 0 时自动恢复到默认值，而不是被删除
+ * @param defaultVal - 默认数量值
+ * @example
+ * quantity: quantityWithDefault(2) // 当输入为 0 时恢复为 2
+ */
+export const quantityWithDefault = (defaultVal: number) =>
+  z.coerce
+    .number()
+    .prefault(defaultVal)
+    .transform(val => (val <= 0 ? defaultVal : val));
+
+/**
+ * 过滤掉 quantity 为 0 的物品 transform 函数
+ * 用于物品容器的后处理，移除数量为 0 的物品
+ * 注意：固定物品数量应使用 quantityWithDefault 来在 0 时恢复默认值，这样不会被此函数删除
+ * @example
+ * z.object({ ... }).catchall(itemSchema).prefault({}).transform(filterZeroQuantityItems)
+ */
+export const filterZeroQuantityItems = <T extends Record<string, unknown>>(items: T): T => {
+  const result = {} as T;
+  for (const key in items) {
+    const item = items[key];
+    // 检查 item 是否为对象且包含 quantity 属性
+    if (item && typeof item === 'object' && 'quantity' in item) {
+      const quantity = (item as { quantity?: number }).quantity;
+      // 保留 quantity 不存在、undefined 或大于 0 的物品
+      if (quantity === undefined || quantity > 0) {
+        result[key] = item;
+      }
+    } else {
+      // 非物品对象直接保留
+      result[key] = item;
+    }
+  }
+  return result;
+};
+
 /**
  * 锁定字符串 schema（值不可变）
  */

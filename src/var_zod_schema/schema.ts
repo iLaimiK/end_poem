@@ -1,10 +1,12 @@
 import {
   appearance,
   clampedNum,
+  filterZeroQuantityItems,
   itemSchema,
   locked,
   lockedItem,
   lockedStr,
+  quantityWithDefault,
   soulSchema,
   uniqueStrArray,
   uniqueStrArrayWith,
@@ -65,7 +67,8 @@ export const Schema = z.object({
             黑白配色的蕾丝阳伞: lockedItem('白随身携带的阳伞，几乎从不离手。伞面洁净，不染尘埃', '神之造物'),
           })
           .catchall(itemSchema)
-          .prefault({}),
+          .prefault({})
+          .transform(filterZeroQuantityItems),
         能力: z
           .any()
           .prefault([...ShiroAbilities])
@@ -98,7 +101,8 @@ export const Schema = z.object({
             ),
           })
           .catchall(itemSchema)
-          .prefault({}),
+          .prefault({})
+          .transform(filterZeroQuantityItems),
         能力: z
           .object({
             法则解析: lockedStr(
@@ -138,7 +142,8 @@ export const Schema = z.object({
             救生筏胶囊: lockedItem('遗物猎人公会的标准高科技求生装备，能在任何水域提供临时的庇护', '可复用物品'),
           })
           .catchall(itemSchema)
-          .prefault({}),
+          .prefault({})
+          .transform(filterZeroQuantityItems),
         能力: z
           .object({
             法则律动: lockedStr("以类似肌肉记忆的直觉方式，在短时间内本能地感知、适应并利用失序区内的'强加法则'"),
@@ -163,7 +168,7 @@ export const Schema = z.object({
         服饰: appearance(),
       }),
       姿态动作: z.string(),
-      持有物品: z.object({}).catchall(itemSchema).prefault({}),
+      持有物品: z.object({}).catchall(itemSchema).prefault({}).transform(filterZeroQuantityItems),
       能力: z
         .object({
           召唤: lockedStr(''),
@@ -215,7 +220,8 @@ export const Schema = z.object({
           黑色魔女帽: lockedItem('宽大的黑色魔女帽，帽檐上装饰着黑色的缎带和两个白色的小球', '重要之物'),
         })
         .catchall(itemSchema)
-        .prefault({}),
+        .prefault({})
+        .transform(filterZeroQuantityItems),
       能力: z
         .object({
           '畸变病毒-猫因子': lockedStr(
@@ -254,12 +260,13 @@ export const Schema = z.object({
             .object({
               desc: lockedStr("由超硬金属'錵'打造的小太刀，刀刃锋利无比，是小比奈最主要的武器"),
               type: z.string().prefault('重要的武器'),
-              quantity: z.coerce.number().prefault(2),
+              quantity: quantityWithDefault(2),
             })
             .prefault({}),
         })
         .catchall(itemSchema)
-        .prefault({}),
+        .prefault({})
+        .transform(filterZeroQuantityItems),
       能力: z
         .object({
           '畸变病毒-螳螂因子': lockedStr(
@@ -281,7 +288,7 @@ export const Schema = z.object({
         信任值: clampedNum(0.01, -1, 1),
         外观: z.string(),
         姿态动作: z.string(),
-        持有物品: z.record(z.string(), itemSchema).prefault({}),
+        持有物品: z.record(z.string(), itemSchema).prefault({}).transform(filterZeroQuantityItems),
         能力: z.record(z.string(), z.string()).prefault({}),
       }),
     )
