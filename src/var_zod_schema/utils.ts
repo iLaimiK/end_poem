@@ -56,24 +56,17 @@ export const quantityWithDefault = (defaultVal: number) =>
  * @example
  * z.object({ ... }).catchall(itemSchema).prefault({}).transform(filterZeroQuantityItems)
  */
-export const filterZeroQuantityItems = <T extends Record<string, unknown>>(items: T): T => {
-  const result = {} as T;
-  for (const key in items) {
-    const item = items[key];
+export const filterZeroQuantityItems = <T extends Record<string, unknown>>(items: T): T =>
+  _.pickBy(items, item => {
     // 检查 item 是否为对象且包含 quantity 属性
     if (item && typeof item === 'object' && 'quantity' in item) {
       const quantity = (item as { quantity?: number }).quantity;
       // 保留 quantity 不存在、undefined 或大于 0 的物品
-      if (quantity === undefined || quantity > 0) {
-        result[key] = item;
-      }
-    } else {
-      // 非物品对象直接保留
-      result[key] = item;
+      return quantity === undefined || quantity > 0;
     }
-  }
-  return result;
-};
+    // 非物品对象直接保留
+    return true;
+  }) as T;
 
 /**
  * 锁定字符串 schema（值不可变）
@@ -96,19 +89,25 @@ export const lockedItem = (defaultDesc: string, defaultType: string, defaultQuan
  * 外观记录 schema
  */
 export const appearance = (defaults: Record<string, string> = {}) =>
-  z.record(z.string(), z.string()).prefault(defaults);
+  z.record(z.string(), z.string()).prefault(() => klona(defaults));
 
 /**
  * 唯一字符串数组 schema（带去重）
  */
 export const uniqueStrArray = (defaults: string[] = []) =>
-  z.array(z.string()).prefault(defaults).transform(uniqueArray);
+  z
+    .array(z.string())
+    .prefault(() => klona(defaults))
+    .transform(uniqueArray);
 
 /**
  * 唯一字符串数组 schema（带去重和强制包含值）
  */
 export const uniqueStrArrayWith = (defaults: string[], required: string[]) =>
-  z.array(z.string()).prefault(defaults).transform(uniqueArrayWith(required));
+  z
+    .array(z.string())
+    .prefault(() => klona(defaults))
+    .transform(uniqueArrayWith(required));
 
 /**
  * 范围限制数值 schema
@@ -119,7 +118,9 @@ export const clampedNum = (defaultVal: number, min: number, max: number) =>
 /**
  * 灵魂对象 schema
  */
-export const soulSchema = z.object({
-  desc: z.string(),
-  灵魂能力: z.record(z.string(), z.string()).prefault({}),
-});
+export const soulSchema = z
+  .object({
+    desc: z.string().prefault(''),
+    灵魂能力: z.record(z.string(), z.string()).prefault({}),
+  })
+  .prefault(() => ({ desc: '', 灵魂能力: {} }));
