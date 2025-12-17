@@ -1,3 +1,5 @@
+import { klona } from 'klona';
+
 /**
  * Zod Schema 工具函数和工厂函数
  */

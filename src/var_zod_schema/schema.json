@@ -3,13 +3,16 @@
   "type": "object",
   "properties": {
     "全局信息": {
+      "default": {},
       "type": "object",
       "properties": {
         "日期": {
+          "default": "终焉纪元333年8月8日",
           "type": "string",
           "pattern": "^终焉纪元-?\\d+(?:\\.\\d+)?年-?\\d+(?:\\.\\d+)?月-?\\d+(?:\\.\\d+)?日$"
         },
         "时间": {
+          "default": "0:0",
           "type": "string",
           "pattern": "^-?\\d+(?:\\.\\d+)?:-?\\d+(?:\\.\\d+)?$"
         },
@@ -29,18 +32,14 @@
             "type": "string"
           }
         }
-      },
-      "required": [
-        "日期",
-        "时间",
-        "当前位置",
-        "天气"
-      ]
+      }
     },
     "plot_record": {
+      "default": {},
       "type": "object",
       "properties": {
         "剧情进度": {
+          "default": "v1",
           "type": "string",
           "pattern": "^v-?\\d+(?:\\.\\d+)?$"
         },
@@ -51,15 +50,14 @@
             "type": "string"
           }
         }
-      },
-      "required": [
-        "剧情进度"
-      ]
+      }
     },
     "主要角色": {
+      "default": {},
       "type": "object",
       "properties": {
         "白": {
+          "default": {},
           "type": "object",
           "properties": {
             "身份": {
@@ -76,6 +74,7 @@
               "type": "number"
             },
             "外观": {
+              "default": {},
               "type": "object",
               "properties": {
                 "外貌": {
@@ -148,13 +147,10 @@
                 "泡泡空间"
               ]
             }
-          },
-          "required": [
-            "外观",
-            "姿态动作"
-          ]
+          }
         },
         "澪": {
+          "default": {},
           "type": "object",
           "properties": {
             "身份": {
@@ -185,6 +181,7 @@
               }
             },
             "外观": {
+              "default": {},
               "type": "object",
               "properties": {
                 "外貌": {
@@ -275,18 +272,11 @@
                 "type": "string"
               }
             }
-          },
-          "required": [
-            "外观",
-            "姿态动作"
-          ]
+          }
         }
       },
-      "required": [
-        "白",
-        "澪"
-      ],
       "additionalProperties": {
+        "default": {},
         "type": "object",
         "properties": {
           "身份": {
@@ -415,9 +405,11 @@
       }
     },
     "特殊角色": {
+      "default": {},
       "type": "object",
       "properties": {
         "Lily": {
+          "default": {},
           "type": "object",
           "properties": {
             "已在队伍": {
@@ -448,6 +440,7 @@
               }
             },
             "外观": {
+              "default": {},
               "type": "object",
               "properties": {
                 "外貌": {
@@ -527,6 +520,10 @@
                 }
               },
               "additionalProperties": {
+                "default": {
+                  "desc": "",
+                  "灵魂能力": {}
+                },
                 "type": "object",
                 "properties": {
                   "desc": {
@@ -542,19 +539,13 @@
                       "type": "string"
                     }
                   }
-                },
-                "required": [
-                  "desc"
-                ]
+                }
               }
             }
-          },
-          "required": [
-            "外观",
-            "姿态动作"
-          ]
+          }
         },
         "布施翠": {
+          "default": {},
           "type": "object",
           "properties": {
             "已在队伍": {
@@ -589,6 +580,7 @@
               }
             },
             "外观": {
+              "default": {},
               "type": "object",
               "properties": {
                 "外貌": {
@@ -677,13 +669,10 @@
                 "type": "string"
               }
             }
-          },
-          "required": [
-            "外观",
-            "姿态动作"
-          ]
+          }
         },
         "蛭子小比奈": {
+          "default": {},
           "type": "object",
           "properties": {
             "已在队伍": {
@@ -719,6 +708,7 @@
               }
             },
             "外观": {
+              "default": {},
               "type": "object",
               "properties": {
                 "外貌": {
@@ -802,18 +792,9 @@
                 "type": "string"
               }
             }
-          },
-          "required": [
-            "外观",
-            "姿态动作"
-          ]
+          }
         }
-      },
-      "required": [
-        "Lily",
-        "布施翠",
-        "蛭子小比奈"
-      ]
+      }
     },
     "次要角色": {
       "default": {},
@@ -822,6 +803,7 @@
         "type": "string"
       },
       "additionalProperties": {
+        "default": {},
         "type": "object",
         "properties": {
           "身份": {
@@ -857,12 +839,7 @@
               "type": "string"
             }
           }
-        },
-        "required": [
-          "身份",
-          "外观",
-          "姿态动作"
-        ]
+        }
       }
     },
     "次要角色记录": {
@@ -879,12 +856,6 @@
       "additionalProperties": {}
     }
   },
-  "required": [
-    "全局信息",
-    "plot_record",
-    "主要角色",
-    "特殊角色"
-  ],
   "$defs": {
     "__schema0": {
       "type": "object",
